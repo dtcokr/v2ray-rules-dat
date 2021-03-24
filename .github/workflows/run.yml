@@ -37,6 +37,43 @@ jobs:
           echo "WIN_SPY=https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/spy.txt" >> $GITHUB_ENV
           echo "WIN_UPDATE=https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/update.txt" >> $GITHUB_ENV
           echo "WIN_EXTRA=https://raw.githubusercontent.com/crazy-max/WindowsSpyBlocker/master/data/hosts/extra.txt" >> $GITHUB_ENV
+
+          echo "CUSTOM_DEVELOPERDAN_ADS_TRACKING=https://www.github.developerdan.com/hosts/lists/ads-and-tracking-extended.txt" >> $GITHUB_ENV
+          echo "CUSTOM_POLISHFILTERSTEAM_KADHOSTS=https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt" >> $GITHUB_ENV
+          echo "CUSTOM_VELESILA_YHOSTS=https://raw.githubusercontent.com/VeleSila/yhosts/master/hosts" >> $GITHUB_ENV
+          echo "CUSTOM_MATOMO_REFERRER_SPAM=https://raw.githubusercontent.com/matomo-org/referrer-spam-blacklist/master/spammers.txt" >> $GITHUB_ENV
+          echo "CUSTOM_WINHELP2002=https://winhelp2002.mvps.org/hosts.txt" >> $GITHUB_ENV
+          echo "CUSTOM_NEOFELHZ_NEOHOSTS=https://v.firebog.net/hosts/neohostsbasic.txt" >> $GITHUB_ENV
+          echo "CUSTOM_ROONEYMCNIBNUG_SNAFU=https://raw.githubusercontent.com/RooneyMcNibNug/pihole-stuff/master/SNAFU.txt" >> $GITHUB_ENV
+          echo "CUSTOM_PAULGB_BARBBLOCK=https://paulgb.github.io/BarbBlock/blacklists/hosts-file.txt" >> $GITHUB_ENV
+          echo "CUSTOM_ADAWAY=https://adaway.org/hosts.txt" >> $GITHUB_ENV
+          echo "CUSTOM_LANIKSJ_ADMIRAL=https://v.firebog.net/hosts/Admiral.txt" >> $GITHUB_ENV
+          echo "CUSTOM_ANUDEEPND_BLACKLIST=https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt" >> $GITHUB_ENV
+          echo "CUSTOM_DISCONNECT_ADS=https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt" >> $GITHUB_ENV
+          echo "CUSTOM_HOSTSVN=https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts" >> $GITHUB_ENV
+          echo "CUSTOM_JDLINGYU_ADWARS=https://raw.githubusercontent.com/jdlingyu/ad-wars/master/hosts" >> $GITHUB_ENV
+          echo "CUSTOM_EASYPRIVACY=https://v.firebog.net/hosts/Easyprivacy.txt" >> $GITHUB_ENV
+          echo "CUSTOM_FABRICEPRIGENT_ADS=https://v.firebog.net/hosts/Prigent-Ads.txt" >> $GITHUB_ENV
+          echo "CUSTOM_FADEMIND_TRACKERS=https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.2o7Net/hosts" >> $GITHUB_ENV
+          echo "CUSTOM_GEOFFREYFROGEYE_FIRSTPARTY=https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt" >> $GITHUB_ENV
+          echo "CUSTOM_KEES1958_TOP_ADS_TRACKERS=https://raw.githubusercontent.com/Kees1958/W3C_annual_most_used_survey_blocklist/master/TOP_EU_US_Ads_Trackers_HOST" >> $GITHUB_ENV
+          echo "CUSTOM_GEOFFREYFROGEYE_MULTIPARTY=https://hostfiles.frogeye.fr/multiparty-trackers-hosts.txt" >> $GITHUB_ENV
+          echo "CUSTOM_PERFLYST_ANDROID_TRACKERS=https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/android-tracking.txt" >> $GITHUB_ENV
+          echo "CUSTOM_PERFLYST_SMARTTV=https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/SmartTV.txt" >> $GITHUB_ENV
+          echo "CUSTOM_QUIDSUP_TRACKERS=https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt" >> $GITHUB_ENV
+          echo "CUSTOM_DANDELIONSPROUT_ANTI_MALWARE=https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareHosts.txt" >> $GITHUB_ENV
+          echo "CUSTOM_DIGITALSIDE_THREATINTEL=https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt" >> $GITHUB_ENV
+          echo "CUSTOM_FABRICEPRIGENT_CRYPTOJACKING=https://v.firebog.net/hosts/Prigent-Crypto.txt" >> $GITHUB_ENV
+          echo "CUSTOM_DISCONNECT_MALVERTISING=https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt" >> $GITHUB_ENV
+          echo "CUSTOM_MANDIANT_APT1_REPORT=https://bitbucket.org/ethanr/dns-blacklists/raw/8575c9f96e5b4a1308f2f12394abd86d0927a4a0/bad_lists/Mandiant_APT1_Report_Appendix_D.txt" >> $GITHUB_ENV
+          echo "CUSTOM_PHISHINGARMY_EXTENDED=https://phishing.army/download/phishing_army_blocklist_extended.txt" >> $GITHUB_ENV
+          echo "CUSTOM_QUIDSUP_MALICIOUS=https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt" >> $GITHUB_ENV
+          echo "CUSTOM_SHALLA_MALICIOUS=https://v.firebog.net/hosts/Shalla-mal.txt" >> $GITHUB_ENV
+          echo "CUSTOM_SPAM404=https://raw.githubusercontent.com/Spam404/lists/master/main-blacklist.txt" >> $GITHUB_ENV
+          echo "CUSTOM_FADEMIND_RISKY_HOSTS=https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.Risk/hosts" >> $GITHUB_ENV
+          echo "CUSTOM_URLHAUS_MALICIOUS=https://urlhaus.abuse.ch/downloads/hostfile/" >> $GITHUB_ENV
+          echo "CUSTOM_ZERODOT1_COINBLOCKLISTS=https://zerodot1.gitlab.io/CoinBlockerLists/hosts_browser" >> $GITHUB_ENV
+          echo "CUSTOM_ANUDEEPND_FACEBOOK=https://raw.githubusercontent.com/anudeepND/blacklist/master/facebook.txt" >> $GITHUB_ENV
         shell: bash
 
       - name: Checkout the "hidden" branch of this repo
@@ -82,6 +119,45 @@ jobs:
           curl -sSL $ADGUARD_DNS_REJECT_URL | perl -ne '/^\|\|([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\^$/ && print "$1\n"' | perl -ne 'print if not /^[0-9]{1,3}(\.[0-9]{1,3}){3}$/' >> temp-reject.txt
           curl -sSL $PETERLOWE_REJECT_URL | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
           curl -sSL $DANPOLLOCK_REJECT_URL | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' | sed '1d' >> temp-reject.txt
+
+      - name: Get and add CUSTOM domains into temp-reject.txt file
+        run: |
+          curl -sSL ${CUSTOM_DEVELOPERDAN_ADS_TRACKING} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_POLISHFILTERSTEAM_KADHOSTS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_VELESILA_YHOSTS} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_MATOMO_REFERRER_SPAM} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_WINHELP2002} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_NEOFELHZ_NEOHOSTS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_ROONEYMCNIBNUG_SNAFU} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_PAULGB_BARBBLOCK} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_ADAWAY} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_LANIKSJ_ADMIRAL} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_ANUDEEPND_BLACKLIST} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_DISCONNECT_ADS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_HOSTSVN} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_JDLINGYU_ADWARS} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_EASYPRIVACY} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_FABRICEPRIGENT_ADS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_FADEMIND_TRACKERS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_GEOFFREYFROGEYE_FIRSTPARTY} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_KEES1958_TOP_ADS_TRACKERS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_GEOFFREYFROGEYE_MULTIPARTY} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_PERFLYST_ANDROID_TRACKERS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_PERFLYST_SMARTTV} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_QUIDSUP_TRACKERS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_DANDELIONSPROUT_ANTI_MALWARE} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_DIGITALSIDE_THREATINTEL} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_FABRICEPRIGENT_CRYPTOJACKING} | perl -ne '/^0\.0\.0\.0([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_DISCONNECT_MALVERTISING} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_MANDIANT_APT1_REPORT} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_PHISHINGARMY_EXTENDED} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_QUIDSUP_MALICIOUS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_SHALLA_MALICIOUS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_SPAM404} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_FADEMIND_RISKY_HOSTS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_URLHAUS_MALICIOUS} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_ZERODOT1_COINBLOCKLISTS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_ANUDEEPND_FACEBOOK} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
       - name: Reserve `full`, `regexp` and `keyword` type of rules from custom lists to "reserve" files
         run: |
