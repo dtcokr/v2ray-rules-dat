@@ -81,6 +81,8 @@ jobs:
           echo "CUSTOM_DEVINEENGINE_PRIVACY=https://raw.githubusercontent.com/DivineEngine/Profiles/master/Quantumult/Filter/Guard/Privacy.list" >> $GITHUB_ENV
           echo "CUSTOM_EHPO1_LIBY=https://raw.githubusercontent.com/eHpo1/Rules/master/QuantumultX/Filter/Liby.txt" >> $GITHUB_ENV
           echo "CUSTOM_GEQ1AN_ADBLOCK=https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/AdBlock.list" >> $GITHUB_ENV
+          echo "CUSTOM_NOBYDA_ADBLOCK=https://raw.githubusercontent.com/NobyDa/ND-AD/master/QuantumultX/AD_Block.txt" >> $GITHUB_ENV
+          echo "CUSTOM_NOBYDA_ADBLOCK_PLUS=https://raw.githubusercontent.com/NobyDa/ND-AD/master/QuantumultX/AD_Block_Plus.txt" >> $GITHUB_ENV
           
         shell: bash
 
@@ -172,6 +174,8 @@ jobs:
           curl -sSL ${CUSTOM_DEVINEENGINE_PRIVACY} | perl -ne '/^DOMAIN-SUFFIX\,([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\,REJECT$/ && print "$1\n"' >> temp-reject.txt
           curl -sSL ${CUSTOM_EHPO1_LIBY} | perl -ne '/^(host-suffix|host)\,\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\,\sAdBlock$/ && print "$2\n"' >> temp-reject.txt
           curl -sSL ${CUSTOM_GEQ1AN_ADBLOCK} | perl -ne '/^HOST-SUFFIX\,([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\,AdBlock$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_NOBYDA_ADBLOCK} | perl -ne '/^DOMAIN-SUFFIX\,([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\,REJECT$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_NOBYDA_ADBLOCK_PLUS} | perl -ne '/^DOMAIN\,([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\,REJECT$/ && print "$1\n"' >> temp-reject.txt
 
       - name: Reserve `full`, `regexp` and `keyword` type of rules from custom lists to "reserve" files
         run: |
