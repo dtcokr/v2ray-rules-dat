@@ -254,9 +254,9 @@ jobs:
           
       - name: Create `OverkillAdBlock`, `OverkillDirect` lists
         run: |
-          echo "# $RELEASE_NAME\n# Assembled by dtcokr" > OverkillAdBlock.list
-          echo "# $RELEASE_NAME\n# Assembled by dtcokr" > OverkillDirect.list
-          echo "# $RELEASE_NAME\n# Assembled by dtcokr" > OverkillProxy.list
+          echo -e "#\n# $RELEASE_NAME\n# Assembled by dtcokr\n#" > OverkillAdBlock.list
+          echo -e "#\n# $RELEASE_NAME\n# Assembled by dtcokr\n#" > OverkillDirect.list
+          echo -e "#\n# $RELEASE_NAME\n# Assembled by dtcokr\n#" > OverkillProxy.list
           cat reject-list.txt | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' >> OverkillAdBlock.list
           cat direct-list.txt | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' >> OverkillDirect.list
           cat proxy-list.txt | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' >> OverkillProxy.list
