@@ -75,6 +75,8 @@ jobs:
           echo "CUSTOM_URLHAUS_MALICIOUS=https://urlhaus.abuse.ch/downloads/hostfile/" >> $GITHUB_ENV
           echo "CUSTOM_ZERODOT1_COINBLOCKLISTS=https://zerodot1.gitlab.io/CoinBlockerLists/hosts_browser" >> $GITHUB_ENV
           echo "CUSTOM_ANUDEEPND_FACEBOOK=https://raw.githubusercontent.com/anudeepND/blacklist/master/facebook.txt" >> $GITHUB_ENV
+          echo "CUSTOM_PRIVACYPROTECTIONTOOLS_ANTIAD=https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-domains.txt" >> $GITHUB_ENV
+          
         shell: bash
 
       - name: Checkout the "hidden" branch of this repo
@@ -159,6 +161,7 @@ jobs:
           curl -sSL ${CUSTOM_URLHAUS_MALICIOUS} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
           curl -sSL ${CUSTOM_ZERODOT1_COINBLOCKLISTS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
           curl -sSL ${CUSTOM_ANUDEEPND_FACEBOOK} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          curl -sSL ${CUSTOM_PRIVACYPROTECTIONTOOLS_ANTIAD} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
       - name: Reserve `full`, `regexp` and `keyword` type of rules from custom lists to "reserve" files
         run: |
