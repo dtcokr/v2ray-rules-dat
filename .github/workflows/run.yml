@@ -363,7 +363,6 @@ jobs:
           install -p {proxy,direct,reject}-list.txt ./publish/
           install -p {apple-cn,google-cn,gfw,greatfire,win-spy,win-update,win-extra}.txt ./publish/
 
-          install -p {proxy,direct,reject}-list-with-redundant ./publish/
           install -p temp-{proxy,direct,reject}.txt ./publish/
           
           install -p {OverkillAdBlock,OverkillDirect,OverkillProxy}.list ./publish/
