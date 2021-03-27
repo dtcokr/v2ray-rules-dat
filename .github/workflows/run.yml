@@ -360,11 +360,12 @@ jobs:
 
           sort --ignore-case -u ./direct-list-ov.txt > ./direct-list-ov-sorted.txt
           sort --ignore-case -u ./proxy-list-ov.txt > ./proxy-list-ov-sorted.txt
+          sort --ignore-case -u ./reject-list.txt > ./reject-list-sorted
           
-          comm -23 ./proxy-list-ov-sorted.txt ./reject-list.txt > ./proxy-list-pre-ov
-          comm -23 ./direct-list-ov-sorted.txt ./reject-list.txt > ./direct-list-pre-ov
+          comm -23 ./proxy-list-ov-sorted.txt ./reject-list-sorted > ./proxy-list-pre-ov
+          comm -23 ./direct-list-ov-sorted.txt ./reject-list-sorted > ./direct-list-pre-ov
 
-          cat reject-list.txt | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock.list
+          cat ./reject-list-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock.list
           cat ./direct-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect.list
           cat ./proxy-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy.list
 
