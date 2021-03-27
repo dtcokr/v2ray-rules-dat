@@ -360,10 +360,13 @@ jobs:
 
           sort --ignore-case -u ./direct-list-ov.txt > ./direct-list-ov-sorted.txt
           sort --ignore-case -u ./proxy-list-ov.txt > ./proxy-list-ov-sorted.txt
+          
+          comm -23 ./proxy-list-ov-sorted.txt ./reject-list.txt > ./proxy-list-pre-ov
+          comm -23 ./direct-list-ov-sorted.txt ./reject-list.txt > ./direct-list-pre-ov
 
           cat reject-list.txt | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock.list
-          cat ./direct-list-ov-sorted.txt | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect.list
-          cat ./proxy-list-ov-sorted.txt | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy.list
+          cat ./direct-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect.list
+          cat ./proxy-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy.list
 
       - name: Build geosite.dat file
         run: |
@@ -386,6 +389,10 @@ jobs:
           sha256sum geosite.dat > geosite.dat.sha256sum
           sha256sum rules.zip > rules.zip.sha256sum
 
+      - name: Notify
+        run: |
+          curl https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendMessage\?chat_id\=${{secrets.CHAT_ID}}\&text\=\*%23GitHubActionFinished\*%0A%0A${RELEASE_NAME}%0Ahttps://github.com/dtcokr/v2ray-rules-dat/releases/latest/\&parse_mode\=markdown
+      
       - name: Release and upload assets
         uses: softprops/action-gh-release@v1
         with:
@@ -397,6 +404,7 @@ jobs:
             ./publish/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
 
       - name: Git push assets to "release" branch
         run: |
