@@ -392,7 +392,7 @@ jobs:
 
       - name: Notify
         run: |
-          curl https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendMessage\?chat_id\=${{secrets.CHAT_ID}}\&text\=\*%23GitHubActionFinished\*%0A%0A${RELEASE_NAME}%0Ahttps://github.com/dtcokr/v2ray-rules-dat/releases/latest/\&parse_mode\=markdown
+          curl --silent "https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendMessage\?chat_id\=${{secrets.CHAT_ID}}\&text\=\*%23GitHubActionFinished\*%0A%0A${RELEASE_NAME}%0Ahttps://github.com/dtcokr/v2ray-rules-dat/releases/latest/\&parse_mode\=markdown"
       
       - name: Release and upload assets
         uses: softprops/action-gh-release@v1
