@@ -354,8 +354,11 @@ jobs:
           comm --nocheck-order -23 ./community/data/win-extra ./reject-need-to-remove-sorted.txt > temp-win-extra
           
           cat ./temp-win-spy > ./community/data/win-spy
+          cat ./temp-win-spy > ./community/data/win-spy.txt
           cat ./temp-win-update > ./community/data/win-update
+          cat ./temp-win-update > ./community/data/win-update.txt
           cat ./temp-win-extra > ./community/data/win-extra
+          cat ./temp-win-extra > ./community/data/win-extra.txt
           
       - name: Create `OverkillAdBlock`, `OverkillDirect`, `OverkillProxy` lists
         run: |
