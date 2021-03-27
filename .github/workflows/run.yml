@@ -376,6 +376,10 @@ jobs:
           install -p {apple-cn,google-cn,gfw,greatfire,win-spy,win-update,win-extra}.txt ./publish/
           
           install -p {OverkillAdBlock,OverkillDirect,OverkillProxy}.list ./publish/
+          
+          install -p {direct,proxy}-list-full-domain ./publish/
+          install -p {direct,proxy}-list-ov.txt ./publish/
+          install -p {direct,proxy}-list-ov-sorted.txt ./publish/
 
           cd ./publish || exit 1
           zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat
