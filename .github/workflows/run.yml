@@ -358,7 +358,7 @@ jobs:
           sort --ignore-case -u ./proxy-list-ov.txt > ./proxy-list-ov-sorted.txt
 
           cat reject-list.txt | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock.list
-          cat ./direct-list-ov-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect.list
+          cat ./direct-list-ov-sorted.txt | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect.list
           cat ./proxy-list-ov-sorted.txt | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy.list
 
       - name: Build geosite.dat file
