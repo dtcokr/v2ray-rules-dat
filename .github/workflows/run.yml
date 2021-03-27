@@ -303,9 +303,13 @@ jobs:
 
       - name: Remove domains from "need-to-remove" lists in "hidden" branch
         run: |
-          diff ./direct-need-to-remove.txt ./direct-list-without-redundant | awk '/^>/{print $2}' > temp-cn.txt
-          diff ./proxy-need-to-remove.txt ./proxy-list-without-redundant | awk '/^>/{print $2}' > temp-geolocation-\!cn.txt
-          diff ./reject-need-to-remove.txt ./reject-list-without-redundant | awk '/^>/{print $2}' > temp-category-ads-all.txt
+          sort --ignore-case -u ./direct-need-to-remove.txt > ./direct-need-to-remove-sorted.txt
+          sort --ignore-case -u ./proxy-need-to-remove.txt > ./proxy-need-to-remove-sorted.txt
+          sort --ignore-case -u ./reject-need-to-remove.txt > ./reject-need-to-remove-sorted.txt
+          
+          diff ./direct-need-to-remove-sorted.txt ./direct-list-without-redundant | awk '/^>/{print $2}' > temp-cn.txt
+          diff ./proxy-need-to-remove-sorted.txt ./proxy-list-without-redundant | awk '/^>/{print $2}' > temp-geolocation-\!cn.txt
+          diff ./reject-need-to-remove-sorted.txt ./reject-list-without-redundant | awk '/^>/{print $2}' > temp-category-ads-all.txt
 
       - name: Remove domains end with ".cn" in "temp-geolocation-!cn.txt" and write lists to data directory
         run: |
@@ -376,10 +380,6 @@ jobs:
           install -p {apple-cn,google-cn,gfw,greatfire,win-spy,win-update,win-extra}.txt ./publish/
           
           install -p {OverkillAdBlock,OverkillDirect,OverkillProxy}.list ./publish/
-          
-          install -p {direct,proxy}-list-full-domain ./publish/
-          install -p {direct,proxy}-list-ov.txt ./publish/
-          install -p {direct,proxy}-list-ov-sorted.txt ./publish/
 
           cd ./publish || exit 1
           zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat
