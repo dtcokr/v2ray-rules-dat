@@ -347,6 +347,16 @@ jobs:
           curl -sSL $WIN_EXTRA | grep "0.0.0.0" | awk '{print $2}' > ./community/data/win-extra
           curl -sSL $WIN_EXTRA | grep "0.0.0.0" | awk '{print $2}' > win-extra.txt
           
+      - name: Remove domains from "need-to-remove" lists in "hidden" branch for `win-spy`, `win-update` and `win-extra`
+        run: |
+          comm --nocheck-order -23 ./community/data/win-spy ./reject-need-to-remove-sorted.txt > temp-win-spy
+          comm --nocheck-order -23 ./community/data/win-update ./reject-need-to-remove-sorted.txt > temp-win-update
+          comm --nocheck-order -23 ./community/data/win-extra ./reject-need-to-remove-sorted.txt > temp-win-extra
+          
+          cat ./temp-win-spy > ./community/data/win-spy
+          cat ./temp-win-update > ./community/data/win-update
+          cat ./temp-win-extra > ./community/data/win-extra
+          
       - name: Create `OverkillAdBlock`, `OverkillDirect`, `OverkillProxy` lists
         run: |
           cat direct-list.txt | perl -ne '/(^full\:)([a-zA-Z0-9-_\.]*)/ && print "$2\n"' > ./direct-list-full-domain
@@ -390,10 +400,6 @@ jobs:
           sha256sum geosite.dat > geosite.dat.sha256sum
           sha256sum rules.zip > rules.zip.sha256sum
 
-      - name: Notify
-        run: |
-          curl --silent "https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendMessage\?chat_id\=${{secrets.CHAT_ID}}\&text\=\*%23GitHubActionFinished\*%0A%0A${RELEASE_NAME}%0Ahttps://github.com/dtcokr/v2ray-rules-dat/releases/latest/\&parse_mode\=markdown"
-      
       - name: Release and upload assets
         uses: softprops/action-gh-release@v1
         with:
