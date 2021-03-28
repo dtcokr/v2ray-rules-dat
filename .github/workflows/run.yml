@@ -281,35 +281,27 @@ jobs:
 
       - name: Sort and generate redundant lists
         run: |
-          cat temp-proxy.txt | sort --ignore-case -u > proxy-list-with-redundant
-          cat temp-direct.txt | sort --ignore-case -u > direct-list-with-redundant
-          cat temp-reject.txt | sort --ignore-case -u > reject-list-with-redundant
+          cat temp-proxy.txt | sort --ignore-case -u > proxy-list-without-redundant
+          cat temp-direct.txt | sort --ignore-case -u > direct-list-without-redundant
+          cat temp-reject.txt | sort --ignore-case -u > reject-list-without-redundant
 
-      - name: Remove duplicated domains
-        run: |
-          chmod +x find_redundant.py
-          ./find_redundant.py ./direct-list-with-redundant ./direct-list-deleted-unsort
-          ./find_redundant.py ./proxy-list-with-redundant ./proxy-list-deleted-unsort
-          ./find_redundant.py ./reject-list-with-redundant ./reject-list-deleted-unsort
-          [ ! -f "direct-list-deleted-unsort" ] && touch direct-list-deleted-unsort
-          [ ! -f "proxy-list-deleted-unsort" ] && touch proxy-list-deleted-unsort
-          [ ! -f "reject-list-deleted-unsort" ] && touch reject-list-deleted-unsort
-          sort ./direct-list-deleted-unsort > ./direct-list-deleted-sort
-          sort ./proxy-list-deleted-unsort > ./proxy-list-deleted-sort
-          sort ./reject-list-deleted-unsort > ./reject-list-deleted-sort
-          diff ./direct-list-deleted-sort ./direct-list-with-redundant | awk '/^>/{print $2}' > ./direct-list-without-redundant
-          diff ./proxy-list-deleted-sort ./proxy-list-with-redundant | awk '/^>/{print $2}' > ./proxy-list-without-redundant
-          diff ./reject-list-deleted-sort ./reject-list-with-redundant | awk '/^>/{print $2}' > ./reject-list-without-redundant
-
-      - name: Remove domains from "need-to-remove" lists in "hidden" branch
+      - name: Remove domains from "need-to-remove" lists in "hidden" branch and sort
         run: |
           sort --ignore-case -u ./direct-need-to-remove.txt > ./direct-need-to-remove-sorted.txt
           sort --ignore-case -u ./proxy-need-to-remove.txt > ./proxy-need-to-remove-sorted.txt
           sort --ignore-case -u ./reject-need-to-remove.txt > ./reject-need-to-remove-sorted.txt
           
+          sort --ignore-case -u ./direct.txt > ./direct-sorted.txt
+          sort --ignore-case -u ./proxy.txt > ./proxy-sorted.txt
+          sort --ignore-case -u ./reject.txt > ./reject-sorted.txt
+          
           cat ./direct-need-to-remove-sorted.txt > ./direct-need-to-remove.txt
           cat ./proxy-need-to-remove-sorted.txt > ./proxy-need-to-remove.txt
           cat ./reject-need-to-remove-sorted.txt > ./reject-need-to-remove.txt
+          
+          cat ./direct-sorted.txt > ./direct.txt
+          cat ./proxy-sorted.txt > ./proxy.txt
+          cat ./reject-sorted.txt > ./reject.txt
           
           diff ./direct-need-to-remove-sorted.txt ./direct-list-without-redundant | awk '/^>/{print $2}' > temp-cn.txt
           diff ./proxy-need-to-remove-sorted.txt ./proxy-list-without-redundant | awk '/^>/{print $2}' > temp-geolocation-\!cn.txt
@@ -403,8 +395,8 @@ jobs:
           install -p {OverkillAdBlock,OverkillDirect,OverkillProxy}.list ./publish/
           
           install -Dp ./reject-need-to-remove.txt ./hid/reject-need-to-remove.txt
-          install -Dp ./direct-need-to-remove.txt ./hid/direct-need-to-remove.txt
-          install -Dp ./proxy-need-to-remove.txt ./hid/proxy-need-to-remove.txt
+          install -p {direct,proxy}-need-to-remove.txt ./hid/
+          install -p {direct,proxy,reject).txt ./hid/
 
           cd ./publish || exit 1
           zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillDirect,OverkillProxy}.list
