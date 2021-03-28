@@ -349,9 +349,9 @@ jobs:
           
       - name: Remove domains from "need-to-remove" lists in "hidden" branch for `win-spy`, `win-update` and `win-extra`
         run: |
-          comm --nocheck-order -23 ./community/data/win-spy ./reject-need-to-remove-sorted.txt > temp-win-spy
-          comm --nocheck-order -23 ./community/data/win-update ./reject-need-to-remove-sorted.txt > temp-win-update
-          comm --nocheck-order -23 ./community/data/win-extra ./reject-need-to-remove-sorted.txt > temp-win-extra
+          diff ./reject-need-to-remove-sorted.txt ./community/data/win-spy  | awk '/^>/{print $2}' > temp-win-spy
+          diff ./reject-need-to-remove-sorted.txt ./community/data/win-update  | awk '/^>/{print $2}' > temp-win-update
+          diff ./reject-need-to-remove-sorted.txt ./community/data/win-extra  | awk '/^>/{print $2}' > temp-win-extra
           
           cat ./temp-win-spy > ./community/data/win-spy
           cat ./temp-win-spy > win-spy.txt
@@ -375,8 +375,8 @@ jobs:
           sort --ignore-case -u ./proxy-list-ov.txt > ./proxy-list-ov-sorted.txt
           sort --ignore-case -u ./reject-list.txt > ./reject-list-sorted
           
-          comm --nocheck-order -23 ./proxy-list-ov-sorted.txt ./reject-list-sorted > ./proxy-list-pre-ov
-          comm --nocheck-order -23 ./direct-list-ov-sorted.txt ./reject-list-sorted > ./direct-list-pre-ov
+          diff ./reject-list-sorted ./proxy-list-ov-sorted.txt | awk '/^>/{print $2}' > ./proxy-list-pre-ov
+          diff ./reject-list-sorted ./direct-list-ov-sorted.txt | awk '/^>/{print $2}' > ./direct-list-pre-ov
 
           cat ./reject-list-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock.list
           cat ./direct-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect.list
