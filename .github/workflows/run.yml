@@ -307,7 +307,9 @@ jobs:
           sort --ignore-case -u ./proxy-need-to-remove.txt > ./proxy-need-to-remove-sorted.txt
           sort --ignore-case -u ./reject-need-to-remove.txt > ./reject-need-to-remove-sorted.txt
           
-          cat ./reject-need-to-remove-sorted.txt > ./hidden/reject-need-to-remove-sorted.txt
+          cat ./direct-need-to-remove-sorted.txt > ./direct-need-to-remove.txt
+          cat ./proxy-need-to-remove-sorted.txt > ./proxy-need-to-remove.txt
+          cat ./reject-need-to-remove-sorted.txt > ./reject-need-to-remove.txt
           
           diff ./direct-need-to-remove-sorted.txt ./direct-list-without-redundant | awk '/^>/{print $2}' > temp-cn.txt
           diff ./proxy-need-to-remove-sorted.txt ./proxy-list-without-redundant | awk '/^>/{print $2}' > temp-geolocation-\!cn.txt
@@ -399,6 +401,8 @@ jobs:
           install -p {apple-cn,google-cn,gfw,greatfire,win-spy,win-update,win-extra}.txt ./publish/
           
           install -p {OverkillAdBlock,OverkillDirect,OverkillProxy}.list ./publish/
+          
+          install -p {reject,direct,proxy}-need-to-remove.txt ./hid/
 
           cd ./publish || exit 1
           zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillDirect,OverkillProxy}.list
@@ -417,7 +421,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-
+      - name: Push to "hidden" branch
+        run: |
+          cd hid || exit 1
+          git init
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b hidden
+          git add .
+          git commit -m "${{ env.RELEASE_NAME }}"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f -u origin hidden
+          
       - name: Git push assets to "release" branch
         run: |
           cd publish || exit 1
