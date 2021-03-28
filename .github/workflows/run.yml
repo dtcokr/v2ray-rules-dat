@@ -396,7 +396,7 @@ jobs:
           
           install -Dp ./reject-need-to-remove.txt ./hid/reject-need-to-remove.txt
           install -p {direct,proxy}-need-to-remove.txt ./hid/
-          install -p {direct,proxy,reject).txt ./hid/
+          install -p {direct,proxy,reject}.txt ./hid/
 
           cd ./publish || exit 1
           zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillDirect,OverkillProxy}.list
