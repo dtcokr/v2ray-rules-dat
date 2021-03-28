@@ -402,7 +402,9 @@ jobs:
           
           install -p {OverkillAdBlock,OverkillDirect,OverkillProxy}.list ./publish/
           
-          install -Dp {reject,direct,proxy}-need-to-remove.txt ./hid/
+          install -Dp ./reject-need-to-remove.txt ./hid/reject-need-to-remove.txt
+          install -Dp ./direct-need-to-remove.txt ./hid/direct-need-to-remove.txt
+          install -Dp ./proxy-need-to-remove.txt ./hid/proxy-need-to-remove.txt
 
           cd ./publish || exit 1
           zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillDirect,OverkillProxy}.list
