@@ -389,23 +389,23 @@ jobs:
           sort --ignore-case -u reject-list-pre.txt > reject-list-pre-sorted.txt
           
           echo '## Changes in `direct-list.txt`' > CHANGELOG.md
-          echo "#### Removed:" >> CHANGELOG.md
+          echo "#### Add:" >> CHANGELOG.md
           diff ./direct-list-pre-sorted.txt ./direct-list-sorted | awk '/^>/{print $2}' >> CHANGELOG.md
-          echo "#### Added:" >> CHANGELOG.md
+          echo "#### Remove:" >> CHANGELOG.md
           diff ./direct-list-pre-sorted.txt ./direct-list-sorted | awk '/^</{print $2}' >> CHANGELOG.md
           echo -e "\n" >> CHANGELOG.md
           
           echo '## Changes in `proxy-list.txt`' >> CHANGELOG.md
-          echo "#### Removed:" >> CHANGELOG.md
+          echo "#### Add:" >> CHANGELOG.md
           diff ./proxy-list-pre-sorted.txt ./proxy-list-sorted | awk '/^>/{print $2}' >> CHANGELOG.md
-          echo "#### Added:" >> CHANGELOG.md
+          echo "#### Remove:" >> CHANGELOG.md
           diff ./proxy-list-pre-sorted.txt ./proxy-list-sorted | awk '/^</{print $2}' >> CHANGELOG.md
           echo -e "\n" >> CHANGELOG.md
           
           echo '## Changes in `reject-list.txt`' >> CHANGELOG.md
-          echo "#### Removed:" >> CHANGELOG.md
+          echo "#### Add:" >> CHANGELOG.md
           diff ./reject-list-pre-sorted.txt ./reject-list-sorted | awk '/^>/{print $2}' >> CHANGELOG.md
-          echo "#### Added:" >> CHANGELOG.md
+          echo "#### Remove:" >> CHANGELOG.md
           diff ./reject-list-pre-sorted.txt ./reject-list-sorted | awk '/^</{print $2}' >> CHANGELOG.md
           
       - name: Build geosite.dat file
