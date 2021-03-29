@@ -383,6 +383,32 @@ jobs:
           cd custom || exit 1
           go run ./ --datapath=../community/data
 
+      - name: Create change log
+        run: |
+          wget -O direct-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/direct-list.txt
+          wget -O proxy-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/proxy-list.txt
+          wget -O reject-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/reject-list.txt
+          
+          echo "## Changes in `direct-list.txt`" > ${{TAG_NAME}}-CHANGELOG.md
+          echo "#### Removed:" >> ${{TAG_NAME}}-CHANGELOG.md
+          diff ./direct-list-pre.txt ./direct-list.txt | awk '/^>/{print $2}' >> ${{TAG_NAME}}-CHANGELOG.md
+          echo "#### Added:" >> ${{TAG_NAME}}-CHANGELOG.md
+          diff ./direct-list-pre.txt ./direct-list.txt | awk '/^</{print $2}' >> ${{TAG_NAME}}-CHANGELOG.md
+          echo -e "\n" >> ${{TAG_NAME}}-CHANGELOG.md
+          
+          echo "## Changes in `proxy-list.txt`" >> ${{TAG_NAME}}-CHANGELOG.md
+          echo "#### Removed:" >> ${{TAG_NAME}}-CHANGELOG.md
+          diff ./proxy-list-pre.txt ./proxy-list.txt | awk '/^>/{print $2}' >> ${{TAG_NAME}}-CHANGELOG.md
+          echo "#### Added:" >> ${{TAG_NAME}}-CHANGELOG.md
+          diff ./proxy-list-pre.txt ./proxy-list.txt | awk '/^</{print $2}' >> ${{TAG_NAME}}-CHANGELOG.md
+          echo -e "\n" >> ${{TAG_NAME}}-CHANGELOG.md
+          
+          echo "## Changes in `reject-list.txt`" >> ${{TAG_NAME}}-CHANGELOG.md
+          echo "#### Removed:" >> ${{TAG_NAME}}-CHANGELOG.md
+          diff ./reject-list-pre.txt ./reject-list.txt | awk '/^>/{print $2}' >> ${{TAG_NAME}}-CHANGELOG.md
+          echo "#### Added:" >> ${{TAG_NAME}}-CHANGELOG.md
+          diff ./reject-list-pre.txt ./reject-list.txt | awk '/^</{print $2}' >> ${{TAG_NAME}}-CHANGELOG.md
+          
       - name: Move and zip files and generate sha256 hash
         run: |
           install -Dp ./geoip.dat ./publish/geoip.dat
@@ -394,6 +420,8 @@ jobs:
           
           install -p {OverkillAdBlock,OverkillDirect,OverkillProxy}.list ./publish/
           
+          install -p ${{TAG_NAME}}-CHANGELOG.md ./publish/
+          
           install -Dp ./reject-need-to-remove.txt ./hid/reject-need-to-remove.txt
           install -p {direct,proxy}-need-to-remove.txt ./hid/
           install -p {direct,proxy,reject}.txt ./hid/
@@ -402,7 +430,7 @@ jobs:
           zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillDirect,OverkillProxy}.list
           sha256sum geosite.dat > geosite.dat.sha256sum
           sha256sum rules.zip > rules.zip.sha256sum
-
+      
       - name: Release and upload assets
         uses: softprops/action-gh-release@v1
         with:
@@ -412,6 +440,8 @@ jobs:
           prerelease: false
           files: |
             ./publish/*
+          body_path: |
+            ./${{TAG_NAME}}-CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
