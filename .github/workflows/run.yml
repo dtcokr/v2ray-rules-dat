@@ -441,7 +441,7 @@ jobs:
           files: |
             ./publish/*
           body_path: |
-            ./publish/${{ env.TAG_NAME }}-CHANGELOG.md
+            ${{ env.TAG_NAME }}-CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
