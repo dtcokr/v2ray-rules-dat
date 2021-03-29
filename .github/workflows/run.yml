@@ -283,6 +283,8 @@ jobs:
           cat direct.txt >> temp-direct.txt
           echo "# CUSTOM_FROM_HIDDEN" >> temp-reject.txt
           cat reject.txt >> temp-reject.txt
+          
+          cat temp-reject.txt > reject-list-group.txt
 
       - name: Sort and generate redundant lists
         run: |
@@ -428,6 +430,7 @@ jobs:
           install -p {apple-cn,google-cn,gfw,greatfire,win-spy,win-update,win-extra}.txt ./publish/
           
           install -p {OverkillAdBlock,OverkillDirect,OverkillProxy}.list ./publish/
+          install -p reject-list-group.txt ./publish/
           
           install -p CHANGELOG.md ./publish/
           
