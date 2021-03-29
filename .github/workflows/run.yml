@@ -111,9 +111,9 @@ jobs:
           curl -sSL $CHINA_DOMAINS_URL | perl -ne '/^server=\/([^\/]+)\// && print "$1\n"' > temp-direct.txt
           curl -sSL ${CUSTOM_DIRECT} | perl -ne '/^(domain):([^:]+)(\n$|:@.+)/ && print "$2\n"' >> temp-direct.txt
 
-      - name: Create a blackhole, for switching off lists temporarily
+      - name: Create a BLACKHOLE, for switching off lists temporarily
         run: |
-          touch blackhole
+          touch BLACKHOLE
           
       - name: Get and add proxy domains into temp-proxy.txt file
         run: |
@@ -180,8 +180,8 @@ jobs:
           echo "# CUSTOM_HOSTSVN" >> temp-reject.txt
           curl -sSL ${CUSTOM_HOSTSVN} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
-          echo "# CUSTOM_JDLINGYU_ADWARS" >> blackhole
-          curl -sSL ${CUSTOM_JDLINGYU_ADWARS} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> blackhole
+          echo "# CUSTOM_JDLINGYU_ADWARS" >> temp-reject.txt
+          curl -sSL ${CUSTOM_JDLINGYU_ADWARS} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
           echo "# CUSTOM_EASYPRIVACY" >> temp-reject.txt
           curl -sSL ${CUSTOM_EASYPRIVACY} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
@@ -249,8 +249,8 @@ jobs:
           echo "# CUSTOM_ANUDEEPND_FACEBOOK" >> temp-reject.txt
           curl -sSL ${CUSTOM_ANUDEEPND_FACEBOOK} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
-          echo "# CUSTOM_PRIVACYPROTECTIONTOOLS_ANTIAD" >> blackhole
-          curl -sSL ${CUSTOM_PRIVACYPROTECTIONTOOLS_ANTIAD} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> blackhole
+          echo "# CUSTOM_PRIVACYPROTECTIONTOOLS_ANTIAD" >> temp-reject.txt
+          curl -sSL ${CUSTOM_PRIVACYPROTECTIONTOOLS_ANTIAD} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
           echo "# CUSTOM_DEVINEENGINE_HIJACKING" >> temp-reject.txt
           curl -sSL ${CUSTOM_DEVINEENGINE_HIJACKING} | perl -ne '/^DOMAIN-SUFFIX\,([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\,REJECT$/ && print "$1\n"' >> temp-reject.txt
