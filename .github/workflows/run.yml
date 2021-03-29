@@ -395,22 +395,30 @@ jobs:
           wget -O proxy-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/proxy-list.txt
           wget -O reject-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/reject-list.txt
           
-          sort --ignore-case -u direct-list-pre.txt > direct-list-pre-sorted.txt
-          sort --ignore-case -u proxy-list-pre.txt > proxy-list-pre-sorted.txt
+          cat direct-list-pre.txt | perl -ne '/(^full\:)([a-zA-Z0-9-_\.]*)/ && print "$2\n"' > ./direct-list-pre-full-domain
+          sed '/^full\:*/d' ./direct-list-pre.txt > ./direct-list-pre-all
+          cat ./direct-list-pre-full-domain >> ./direct-list-pre-all
+          sort --ignore-case -u direct-list-pre-all > direct-list-pre-all-sorted.txt
+          
+          cat proxy-list-pre.txt | perl -ne '/(^full\:)([a-zA-Z0-9-_\.]*)/ && print "$2\n"' > ./proxy-list-pre-full-domain
+          sed '/^full\:*/d' ./proxy-list-pre.txt > ./proxy-list-pre-all
+          cat ./proxy-list-pre-full-domain >> ./proxy-list-pre-all
+          sort --ignore-case -u proxy-list-pre-all > proxy-list-pre-all-sorted.txt
+          
           sort --ignore-case -u reject-list-pre.txt > reject-list-pre-sorted.txt
           
           echo '## Changes in `direct-list.txt`' > CHANGELOG.md
           echo "#### Add:" >> CHANGELOG.md
-          diff ./direct-list-pre-sorted.txt ./direct-list-pre-ov | awk '/^>/{print $2}' >> CHANGELOG.md
+          diff ./direct-list-pre-all-sorted.txt ./direct-list-pre-ov | awk '/^>/{print $2}' >> CHANGELOG.md
           echo "#### Remove:" >> CHANGELOG.md
-          diff ./direct-list-pre-sorted.txt ./direct-list-pre-ov | awk '/^</{print $2}' >> CHANGELOG.md
+          diff ./direct-list-pre-all-sorted.txt ./direct-list-pre-ov | awk '/^</{print $2}' >> CHANGELOG.md
           echo -e "\n" >> CHANGELOG.md
           
           echo '## Changes in `proxy-list.txt`' >> CHANGELOG.md
           echo "#### Add:" >> CHANGELOG.md
-          diff ./proxy-list-pre-sorted.txt ./proxy-list-pre-ov | awk '/^>/{print $2}' >> CHANGELOG.md
+          diff ./proxy-list-pre-all-sorted.txt ./proxy-list-pre-ov | awk '/^>/{print $2}' >> CHANGELOG.md
           echo "#### Remove:" >> CHANGELOG.md
-          diff ./proxy-list-pre-sorted.txt ./proxy-list-pre-ov | awk '/^</{print $2}' >> CHANGELOG.md
+          diff ./proxy-list-pre-all-sorted.txt ./proxy-list-pre-ov | awk '/^</{print $2}' >> CHANGELOG.md
           echo -e "\n" >> CHANGELOG.md
           
           echo '## Changes in `reject-list.txt`' >> CHANGELOG.md
