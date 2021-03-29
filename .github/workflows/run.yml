@@ -407,18 +407,21 @@ jobs:
           
           sort --ignore-case -u reject-list-pre.txt > reject-list-pre-sorted.txt
           
+          sort --ignore-case -u direct-list-pre-ov > direct-list-pre-ov-sorted
+          sort --ignore-case -u proxy-list-pre-ov > proxy-list-pre-ov-sorted
+          
           echo '## Changes in `direct-list.txt`' > CHANGELOG.md
           echo "#### Add:" >> CHANGELOG.md
-          diff ./direct-list-pre-all-sorted.txt ./direct-list-pre-ov | awk '/^>/{print $2}' >> CHANGELOG.md
+          diff ./direct-list-pre-all-sorted.txt ./direct-list-pre-ov-sorted | awk '/^>/{print $2}' >> CHANGELOG.md
           echo "#### Remove:" >> CHANGELOG.md
-          diff ./direct-list-pre-all-sorted.txt ./direct-list-pre-ov | awk '/^</{print $2}' >> CHANGELOG.md
+          diff ./direct-list-pre-all-sorted.txt ./direct-list-pre-ov-sorted | awk '/^</{print $2}' >> CHANGELOG.md
           echo -e "\n" >> CHANGELOG.md
           
           echo '## Changes in `proxy-list.txt`' >> CHANGELOG.md
           echo "#### Add:" >> CHANGELOG.md
-          diff ./proxy-list-pre-all-sorted.txt ./proxy-list-pre-ov | awk '/^>/{print $2}' >> CHANGELOG.md
+          diff ./proxy-list-pre-all-sorted.txt ./proxy-list-pre-ov-sorted | awk '/^>/{print $2}' >> CHANGELOG.md
           echo "#### Remove:" >> CHANGELOG.md
-          diff ./proxy-list-pre-all-sorted.txt ./proxy-list-pre-ov | awk '/^</{print $2}' >> CHANGELOG.md
+          diff ./proxy-list-pre-all-sorted.txt ./proxy-list-pre-ov-sorted | awk '/^</{print $2}' >> CHANGELOG.md
           echo -e "\n" >> CHANGELOG.md
           
           echo '## Changes in `reject-list.txt`' >> CHANGELOG.md
