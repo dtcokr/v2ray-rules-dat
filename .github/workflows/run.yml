@@ -389,25 +389,25 @@ jobs:
           wget -O proxy-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/proxy-list.txt
           wget -O reject-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/reject-list.txt
           
-          echo "## Changes in `direct-list.txt`" > ${{TAG_NAME}}-CHANGELOG.md
-          echo "#### Removed:" >> ${{TAG_NAME}}-CHANGELOG.md
-          diff ./direct-list-pre.txt ./direct-list.txt | awk '/^>/{print $2}' >> ${{TAG_NAME}}-CHANGELOG.md
-          echo "#### Added:" >> ${{TAG_NAME}}-CHANGELOG.md
-          diff ./direct-list-pre.txt ./direct-list.txt | awk '/^</{print $2}' >> ${{TAG_NAME}}-CHANGELOG.md
-          echo -e "\n" >> ${{TAG_NAME}}-CHANGELOG.md
+          echo "## Changes in `direct-list.txt`" > ${{ env.TAG_NAME }}-CHANGELOG.md
+          echo "#### Removed:" >> ${{ env.TAG_NAME }}-CHANGELOG.md
+          diff ./direct-list-pre.txt ./direct-list.txt | awk '/^>/{print $2}' >> ${{ env.TAG_NAME }}-CHANGELOG.md
+          echo "#### Added:" >> ${{ env.TAG_NAME }}-CHANGELOG.md
+          diff ./direct-list-pre.txt ./direct-list.txt | awk '/^</{print $2}' >> ${{ env.TAG_NAME }}-CHANGELOG.md
+          echo -e "\n" >> ${{ env.TAG_NAME }}-CHANGELOG.md
           
-          echo "## Changes in `proxy-list.txt`" >> ${{TAG_NAME}}-CHANGELOG.md
-          echo "#### Removed:" >> ${{TAG_NAME}}-CHANGELOG.md
-          diff ./proxy-list-pre.txt ./proxy-list.txt | awk '/^>/{print $2}' >> ${{TAG_NAME}}-CHANGELOG.md
-          echo "#### Added:" >> ${{TAG_NAME}}-CHANGELOG.md
-          diff ./proxy-list-pre.txt ./proxy-list.txt | awk '/^</{print $2}' >> ${{TAG_NAME}}-CHANGELOG.md
-          echo -e "\n" >> ${{TAG_NAME}}-CHANGELOG.md
+          echo "## Changes in `proxy-list.txt`" >> ${{ env.TAG_NAME }}-CHANGELOG.md
+          echo "#### Removed:" >> ${{ env.TAG_NAME }}-CHANGELOG.md
+          diff ./proxy-list-pre.txt ./proxy-list.txt | awk '/^>/{print $2}' >> ${{ env.TAG_NAME }}-CHANGELOG.md
+          echo "#### Added:" >> ${{ env.TAG_NAME }}-CHANGELOG.md
+          diff ./proxy-list-pre.txt ./proxy-list.txt | awk '/^</{print $2}' >> ${{ env.TAG_NAME }}-CHANGELOG.md
+          echo -e "\n" >> ${{ env.TAG_NAME }}-CHANGELOG.md
           
-          echo "## Changes in `reject-list.txt`" >> ${{TAG_NAME}}-CHANGELOG.md
-          echo "#### Removed:" >> ${{TAG_NAME}}-CHANGELOG.md
-          diff ./reject-list-pre.txt ./reject-list.txt | awk '/^>/{print $2}' >> ${{TAG_NAME}}-CHANGELOG.md
-          echo "#### Added:" >> ${{TAG_NAME}}-CHANGELOG.md
-          diff ./reject-list-pre.txt ./reject-list.txt | awk '/^</{print $2}' >> ${{TAG_NAME}}-CHANGELOG.md
+          echo "## Changes in `reject-list.txt`" >> ${{ env.TAG_NAME }}-CHANGELOG.md
+          echo "#### Removed:" >> ${{ env.TAG_NAME }}-CHANGELOG.md
+          diff ./reject-list-pre.txt ./reject-list.txt | awk '/^>/{print $2}' >> ${{ env.TAG_NAME }}-CHANGELOG.md
+          echo "#### Added:" >> ${{ env.TAG_NAME }}-CHANGELOG.md
+          diff ./reject-list-pre.txt ./reject-list.txt | awk '/^</{print $2}' >> ${{ env.TAG_NAME }}-CHANGELOG.md
           
       - name: Move and zip files and generate sha256 hash
         run: |
@@ -420,7 +420,7 @@ jobs:
           
           install -p {OverkillAdBlock,OverkillDirect,OverkillProxy}.list ./publish/
           
-          install -p ${{TAG_NAME}}-CHANGELOG.md ./publish/
+          install -p ${{ env.TAG_NAME }}-CHANGELOG.md ./publish/
           
           install -Dp ./reject-need-to-remove.txt ./hid/reject-need-to-remove.txt
           install -p {direct,proxy}-need-to-remove.txt ./hid/
@@ -441,7 +441,7 @@ jobs:
           files: |
             ./publish/*
           body_path: |
-            ./${{TAG_NAME}}-CHANGELOG.md
+            ./${{ env.TAG_NAME }}-CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
