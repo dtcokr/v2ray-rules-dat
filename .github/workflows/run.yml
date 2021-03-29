@@ -80,6 +80,7 @@ jobs:
           echo "CUSTOM_GEQ1AN_ADBLOCK=https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/AdBlock.list" >> $GITHUB_ENV
           echo "CUSTOM_NOBYDA_ADBLOCK=https://raw.githubusercontent.com/NobyDa/ND-AD/master/QuantumultX/AD_Block.txt" >> $GITHUB_ENV
           echo "CUSTOM_NOBYDA_ADBLOCK_PLUS=https://raw.githubusercontent.com/NobyDa/ND-AD/master/QuantumultX/AD_Block_Plus.txt" >> $GITHUB_ENV
+          echo "CUSTOM_URLHAUS_MALICIOUS_FULL=https://curben.gitlab.io/malware-filter/urlhaus-filter-hosts.txt" >> $GITHUB_ENV
           
         shell: bash
 
@@ -267,6 +268,9 @@ jobs:
 
           echo "# CUSTOM_NOBYDA_ADBLOCK_PLUS" >> temp-reject.txt
           curl -sSL ${CUSTOM_NOBYDA_ADBLOCK_PLUS} | perl -ne '/^DOMAIN\,([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\,REJECT$/ && print "$1\n"' >> temp-reject.txt
+          
+          echo "# CUSTOM_URLHAUS_MALICIOUS_FULL" >> temp-reject.txt
+          curl -sSL ${CUSTOM_URLHAUS_MALICIOUS_FULL} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
       - name: Reserve `full`, `regexp` and `keyword` type of rules from custom lists to "reserve" files
         run: |
@@ -277,13 +281,14 @@ jobs:
         run: |
           cat proxy.txt >> temp-proxy.txt
           cat direct.txt >> temp-direct.txt
+          echo "# CUSTOM_FROM_HIDDEN" >> temp-reject.txt
           cat reject.txt >> temp-reject.txt
 
       - name: Sort and generate redundant lists
         run: |
           cat temp-proxy.txt | sort --ignore-case -u > proxy-list-without-redundant
           cat temp-direct.txt | sort --ignore-case -u > direct-list-without-redundant
-          cat temp-reject.txt | sort --ignore-case -u > reject-list-without-redundant
+          cat temp-reject.txt | awk '{gsub(/^www\./,"",$1);print}' | sort --ignore-case -u > reject-list-without-redundant
 
       - name: Remove domains from "need-to-remove" lists in "hidden" branch and sort
         run: |
