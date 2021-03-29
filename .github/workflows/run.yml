@@ -384,21 +384,21 @@ jobs:
           wget -O proxy-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/proxy-list.txt
           wget -O reject-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/reject-list.txt
           
-          echo "## Changes in `direct-list.txt`" > CHANGELOG.md
+          echo '## Changes in `direct-list.txt`' > CHANGELOG.md
           echo "#### Removed:" >> CHANGELOG.md
           diff ./direct-list-pre.txt ./direct-list.txt | awk '/^>/{print $2}' >> CHANGELOG.md
           echo "#### Added:" >> CHANGELOG.md
           diff ./direct-list-pre.txt ./direct-list.txt | awk '/^</{print $2}' >> CHANGELOG.md
           echo -e "\n" >> CHANGELOG.md
           
-          echo "## Changes in `proxy-list.txt`" >> CHANGELOG.md
+          echo '## Changes in `proxy-list.txt`' >> CHANGELOG.md
           echo "#### Removed:" >> CHANGELOG.md
           diff ./proxy-list-pre.txt ./proxy-list.txt | awk '/^>/{print $2}' >> CHANGELOG.md
           echo "#### Added:" >> CHANGELOG.md
           diff ./proxy-list-pre.txt ./proxy-list.txt | awk '/^</{print $2}' >> CHANGELOG.md
           echo -e "\n" >> CHANGELOG.md
           
-          echo "## Changes in `reject-list.txt`" >> CHANGELOG.md
+          echo '## Changes in `reject-list.txt`' >> CHANGELOG.md
           echo "#### Removed:" >> CHANGELOG.md
           diff ./reject-list-pre.txt ./reject-list.txt | awk '/^>/{print $2}' >> CHANGELOG.md
           echo "#### Added:" >> CHANGELOG.md
