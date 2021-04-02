@@ -336,11 +336,14 @@ jobs:
           cp ./community/data/geolocation-\!cn proxy-list.txt
           cp ./community/data/category-ads-all reject-list.txt
 
-      - name: Create `google-cn`、`apple-cn`、`gfw`、`greatfire` lists
+      - name: Create `google-cn`、`apple-cn`、`gfw`、`greatfire`、`apple-cn-ov`、`google-cn-ov` lists
         run: |
           curl -sSL $GOOGLE_DOMAINS_URL | perl -ne '/^server=\/([^\/]+)\// && print "full:$1\n"' > ./community/data/google-cn
+          curl -sSL $GOOGLE_DOMAINS_URL | perl -ne '/^server=\/([^\/]+)\// && print "$1\n"' > google-cn-ov
           curl -sSL $GOOGLE_DOMAINS_URL | perl -ne '/^server=\/([^\/]+)\// && print "full:$1\n"' > google-cn.txt
+
           curl -sSL $APPLE_DOMAINS_URL | perl -ne '/^server=\/([^\/]+)\// && print "full:$1\n"' > ./community/data/apple-cn
+          curl -sSL $APPLE_DOMAINS_URL | perl -ne '/^server=\/([^\/]+)\// && print "$1\n"' > apple-cn-ov
           curl -sSL $APPLE_DOMAINS_URL | perl -ne '/^server=\/([^\/]+)\// && print "full:$1\n"' > apple-cn.txt
           curl -sSL $GFWLIST_DOMAINS_URL | perl -ne '/^((?=^.{3,255})[a-zA-Z0-9][-_a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-_a-zA-Z0-9]{0,62})+)/ && print "$1\n"' >> ./community/data/gfw
           curl -sSL $GFWLIST_EXTRAS_DOMAINS_URL | perl -ne 'print if not /^(#|\s)/' >> ./community/data/gfw
@@ -367,7 +370,7 @@ jobs:
           cat ./temp-win-extra > ./community/data/win-extra
           cat ./temp-win-extra > win-extra.txt
           
-      - name: Create `OverkillAdBlock`, `OverkillDirect`, `OverkillProxy` lists
+      - name: Create `OverkillAdBlock`, `OverkillDirect`, `OverkillProxy`, `OverkillAppleCN`, `OverkillGoogleCN` lists
         run: |
           cat direct-list.txt | perl -ne '/(^full\:)([a-zA-Z0-9-_\.]*)/ && print "$2\n"' > ./direct-list-full-domain
           cat proxy-list.txt | perl -ne '/(^full\:)([a-zA-Z0-9-_\.]*)/ && print "$2\n"' > ./proxy-list-full-domain
@@ -381,13 +384,19 @@ jobs:
           sort --ignore-case -u ./direct-list-ov.txt > ./direct-list-ov-sorted.txt
           sort --ignore-case -u ./proxy-list-ov.txt > ./proxy-list-ov-sorted.txt
           sort --ignore-case -u ./reject-list.txt > ./reject-list-sorted
+          sort --ignore-case -u ./apple-cn-ov > ./apple-cn-ov-sorted
+          sort --ignore-case -u ./google-cn-ov > ./google-cn-ov-sorted
           
           diff ./reject-list-sorted ./proxy-list-ov-sorted.txt | awk '/^>/{print $2}' > ./proxy-list-pre-ov
           diff ./reject-list-sorted ./direct-list-ov-sorted.txt | awk '/^>/{print $2}' > ./direct-list-pre-ov
+          diff ./reject-list-sorted ./apple-cn-ov-sorted | awk '/^>/{print $2}' > ./apple-cn-pre-ov
+          diff ./reject-list-sorted ./google-cn-ov-sorted | awk '/^>/{print $2}' > ./google-cn-pre-ov
 
           cat ./reject-list-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock.list
           cat ./direct-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect.list
           cat ./proxy-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy.list
+          cat ./apple-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillAppleCN.list
+          cat ./google-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillGoogleCN.list
 
       - name: Create change log
         run: |
@@ -411,23 +420,23 @@ jobs:
           sort --ignore-case -u proxy-list-ov.txt > proxy-list-ov-sorted-2
           
           echo '## Changes in `direct-list.txt`' > CHANGELOG.md
-          echo "#### Add:" >> CHANGELOG.md
+          echo "### Add:" >> CHANGELOG.md
           diff ./direct-list-pre-all-sorted.txt ./direct-list-ov-sorted-2 | awk '/^>/{print $2}' >> CHANGELOG.md
-          echo "#### Remove:" >> CHANGELOG.md
+          echo "### Remove:" >> CHANGELOG.md
           diff ./direct-list-pre-all-sorted.txt ./direct-list-ov-sorted-2 | awk '/^</{print $2}' >> CHANGELOG.md
           echo -e "\n" >> CHANGELOG.md
           
           echo '## Changes in `proxy-list.txt`' >> CHANGELOG.md
-          echo "#### Add:" >> CHANGELOG.md
+          echo "### Add:" >> CHANGELOG.md
           diff ./proxy-list-pre-all-sorted.txt ./proxy-list-ov-sorted-2 | awk '/^>/{print $2}' >> CHANGELOG.md
-          echo "#### Remove:" >> CHANGELOG.md
+          echo "### Remove:" >> CHANGELOG.md
           diff ./proxy-list-pre-all-sorted.txt ./proxy-list-ov-sorted-2 | awk '/^</{print $2}' >> CHANGELOG.md
           echo -e "\n" >> CHANGELOG.md
           
           echo '## Changes in `reject-list.txt`' >> CHANGELOG.md
-          echo "#### Add:" >> CHANGELOG.md
+          echo "### Add:" >> CHANGELOG.md
           diff ./reject-list-pre-sorted.txt ./reject-list-sorted | awk '/^>/{print $2}' >> CHANGELOG.md
-          echo "#### Remove:" >> CHANGELOG.md
+          echo "### Remove:" >> CHANGELOG.md
           diff ./reject-list-pre-sorted.txt ./reject-list-sorted | awk '/^</{print $2}' >> CHANGELOG.md
           
       - name: Build geosite.dat file
@@ -444,7 +453,7 @@ jobs:
           install -p {proxy,direct,reject}-list.txt ./publish/
           install -p {apple-cn,google-cn,gfw,greatfire,win-spy,win-update,win-extra}.txt ./publish/
           
-          install -p {OverkillAdBlock,OverkillDirect,OverkillProxy}.list ./publish/
+          install -p {OverkillAdBlock,OverkillDirect,OverkillProxy,OverkillGoogleCN,OverkillAppleCN}.list ./publish/
           install -p reject-list-group.txt ./publish/
           
           install -p CHANGELOG.md ./publish/
@@ -454,7 +463,7 @@ jobs:
           install -p {direct,proxy,reject}.txt ./hid/
 
           cd ./publish || exit 1
-          zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillDirect,OverkillProxy}.list
+          zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillDirect,OverkillProxy,OverkillGoogleCN,OverkillAppleCN}.list
           sha256sum geosite.dat > geosite.dat.sha256sum
           sha256sum rules.zip > rules.zip.sha256sum
       
