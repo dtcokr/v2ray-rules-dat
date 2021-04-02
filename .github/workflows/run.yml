@@ -287,7 +287,7 @@ jobs:
           echo "# CUSTOM_FROM_HIDDEN" >> temp-reject.txt
           cat reject.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
           
-      - name: Sort and generate redundant lists
+      - name: Sort and generate non-redundant lists
         run: |
           cat temp-proxy.txt | sort --ignore-case -u > proxy-list-without-redundant
           cat temp-direct.txt | sort --ignore-case -u > direct-list-without-redundant
@@ -299,6 +299,12 @@ jobs:
           ./adlist_tagging.py temp-reject.txt reject-list-with-tag
           sort --ignore-case -u ./reject-list-with-tag > reject-list-with-tag-sorted
           cat ./reject-list-with-tag-sorted > reject-list-with-tag.txt
+
+      - name: Prepare for "reject-need-to-remove"
+        run: |
+          chmod +x ./domain_generalization.py
+          ./domain_generalization.py reject-need-to-remove.txt reject-list-without-redundant reject-need-to-remove-generalization
+          cat reject-need-to-remove-generalization >> reject-need-to-remove.txt
 
       - name: Remove domains from "need-to-remove" lists in "hidden" branch and sort
         run: |
@@ -465,6 +471,7 @@ jobs:
           install -p {direct,proxy}-need-to-remove.txt ./hid/
           install -p {direct,proxy,reject}.txt ./hid/
           install -p adlist_tagging.py ./hid/
+          install -p domain_generalization.py ./hid/
 
           cd ./publish || exit 1
           zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list
