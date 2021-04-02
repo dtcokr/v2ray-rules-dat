@@ -438,9 +438,9 @@ jobs:
           
           echo '## Changes in `reject-list.txt`' >> CHANGELOG.md
           echo "### Add:" >> CHANGELOG.md
-          diff ./reject-list-with-tag-old.txt ./reject-list-with-tag.txt | awk '/^>/{print $2}' >> CHANGELOG.md
+          diff ./reject-list-with-tag-old.txt ./reject-list-with-tag.txt | awk '/^>/{print}' >> CHANGELOG.md
           echo "### Remove:" >> CHANGELOG.md
-          diff ./reject-list-with-tag-old.txt ./reject-list-with-tag.txt | awk '/^</{print $2}' >> CHANGELOG.md
+          diff ./reject-list-with-tag-old.txt ./reject-list-with-tag.txt | awk '/^</{print}' >> CHANGELOG.md
           
       - name: Build geosite.dat file
         run: |
