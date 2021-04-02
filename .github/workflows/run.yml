@@ -283,18 +283,23 @@ jobs:
 
       - name: Add proxy, direct and reject domains from "hidden" branch to appropriate temp files
         run: |
-          cat proxy.txt >> temp-proxy.txt
-          cat direct.txt >> temp-direct.txt
+          cat proxy.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-proxy.txt
+          cat direct.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-direct.txt
           echo "# CUSTOM_FROM_HIDDEN" >> temp-reject.txt
-          cat reject.txt >> temp-reject.txt
+          cat reject.txt perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
           
-          cat temp-reject.txt > reject-list-group.txt
-
       - name: Sort and generate redundant lists
         run: |
           cat temp-proxy.txt | sort --ignore-case -u > proxy-list-without-redundant
           cat temp-direct.txt | sort --ignore-case -u > direct-list-without-redundant
           cat temp-reject.txt | awk '{gsub(/^www\./,"",$1);print}' | sort --ignore-case -u > reject-list-without-redundant
+
+      - name: Taging reject domains with source
+        run: |
+          chmod +x ./adlist_tagging.py
+          ./adlist_tagging.py temp-reject.txt reject-list-with-tag
+          sort --ignore-case -u ./reject-list-with-tag reject-list-with-tag-sorted
+          cat ./reject-list-with-tag-sorted > reject-list-with-tag.txt
 
       - name: Remove domains from "need-to-remove" lists in "hidden" branch and sort
         run: |
@@ -395,8 +400,8 @@ jobs:
           cat ./reject-list-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock.list
           cat ./direct-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect.list
           cat ./proxy-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy.list
-          cat ./apple-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillAppleCN.list
-          cat ./google-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillGoogleCN.list
+          cat ./apple-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillAppleCN-DIRECT.list
+          cat ./google-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillGoogleCN-DIRECT.list
 
       - name: Create change log
         run: |
@@ -454,13 +459,15 @@ jobs:
           install -p {apple-cn,google-cn,gfw,greatfire,win-spy,win-update,win-extra}.txt ./publish/
           
           install -p {OverkillAdBlock,OverkillDirect,OverkillProxy,OverkillGoogleCN,OverkillAppleCN}.list ./publish/
-          install -p reject-list-group.txt ./publish/
+          
+          install -p reject-list-with-tag.txt ./publish/
           
           install -p CHANGELOG.md ./publish/
           
           install -Dp ./reject-need-to-remove.txt ./hid/reject-need-to-remove.txt
           install -p {direct,proxy}-need-to-remove.txt ./hid/
           install -p {direct,proxy,reject}.txt ./hid/
+          install -p adlist_tagging.py ./hid/
 
           cd ./publish || exit 1
           zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillDirect,OverkillProxy,OverkillGoogleCN,OverkillAppleCN}.list
