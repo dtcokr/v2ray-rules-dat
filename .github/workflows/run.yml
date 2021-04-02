@@ -407,7 +407,7 @@ jobs:
         run: |
           wget -O direct-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/direct-list.txt
           wget -O proxy-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/proxy-list.txt
-          wget -O reject-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/reject-list.txt
+          wget -O reject-list-with-tag-old.txt https://github.com/dtcokr/v2ray-rules-dat/releases/download/202104020458/reject-list-with-tag.txt
           
           cat direct-list-pre.txt | perl -ne '/(^full\:)([a-zA-Z0-9-_\.]*)/ && print "$2\n"' > ./direct-list-pre-full-domain
           sed '/^full\:*/d' ./direct-list-pre.txt > ./direct-list-pre-all
@@ -418,9 +418,7 @@ jobs:
           sed '/^full\:*/d' ./proxy-list-pre.txt > ./proxy-list-pre-all
           cat ./proxy-list-pre-full-domain >> ./proxy-list-pre-all
           sort --ignore-case -u proxy-list-pre-all > proxy-list-pre-all-sorted.txt
-          
-          sort --ignore-case -u reject-list-pre.txt > reject-list-pre-sorted.txt
-          
+                    
           sort --ignore-case -u direct-list-ov.txt > direct-list-ov-sorted-2
           sort --ignore-case -u proxy-list-ov.txt > proxy-list-ov-sorted-2
           
@@ -440,9 +438,9 @@ jobs:
           
           echo '## Changes in `reject-list.txt`' >> CHANGELOG.md
           echo "### Add:" >> CHANGELOG.md
-          diff ./reject-list-pre-sorted.txt ./reject-list-sorted | awk '/^>/{print $2}' >> CHANGELOG.md
+          diff ./reject-list-with-tag-old.txt ./reject-list-with-tag.txt | awk '/^>/{print $2}' >> CHANGELOG.md
           echo "### Remove:" >> CHANGELOG.md
-          diff ./reject-list-pre-sorted.txt ./reject-list-sorted | awk '/^</{print $2}' >> CHANGELOG.md
+          diff ./reject-list-with-tag-old.txt ./reject-list-with-tag.txt | awk '/^</{print $2}' >> CHANGELOG.md
           
       - name: Build geosite.dat file
         run: |
