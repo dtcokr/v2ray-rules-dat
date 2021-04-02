@@ -286,7 +286,7 @@ jobs:
           cat proxy.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-proxy.txt
           cat direct.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-direct.txt
           echo "# CUSTOM_FROM_HIDDEN" >> temp-reject.txt
-          cat reject.txt perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
+          cat reject.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
           
       - name: Sort and generate redundant lists
         run: |
