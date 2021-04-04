@@ -2,8 +2,188 @@
 
 ## Custom Lists
 
-- **加入大量自定义黑名单域名**，https://github.com/dtcokr/v2ray-rules-dat/blob/master/.github/workflows/run.yml
-- **Quantumult X applicable**
+- 加入大量自定义黑名单域名
+  - DEVELOPERDAN_ADS_TRACKING
+
+  https://www.github.developerdan.com/hosts/lists/ads-and-tracking-extended.txt
+
+  - POLISHFILTERSTEAM_KADHOSTS
+
+  https://raw.githubusercontent.com/PolishFiltersTeam/KADhosts/master/KADhosts.txt
+
+  - VELESILA_YHOSTS
+
+  https://raw.githubusercontent.com/VeleSila/yhosts/master/hosts
+
+  - MATOMO_REFERRER_SPAM
+
+  https://raw.githubusercontent.com/matomo-org/referrer-spam-blacklist/master/spammers.txt
+
+  - WINHELP2002
+
+  https://winhelp2002.mvps.org/hosts.txt
+
+  - NEOFELHZ_NEOHOSTS
+
+  https://v.firebog.net/hosts/neohostsbasic.txt
+
+  - ROONEYMCNIBNUG_SNAFU
+
+  https://raw.githubusercontent.com/RooneyMcNibNug/pihole-stuff/master/SNAFU.txt
+
+  - PAULGB_BARBBLOCK
+
+  https://paulgb.github.io/BarbBlock/blacklists/hosts-file.txt
+
+  - ADAWAY
+
+  https://adaway.org/hosts.txt
+
+  - LANIKSJ_ADMIRAL
+
+  https://v.firebog.net/hosts/Admiral.txt
+
+  - ANUDEEPND_BLACKLIST
+
+  https://raw.githubusercontent.com/anudeepND/blacklist/master/adservers.txt
+
+  - DISCONNECT_ADS
+
+  https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
+
+  - HOSTSVN
+
+  https://raw.githubusercontent.com/bigdargon/hostsVN/master/hosts
+
+  - JDLINGYU_ADWARS
+
+  https://raw.githubusercontent.com/jdlingyu/ad-wars/master/hosts
+
+  - EASYPRIVACY
+
+  https://v.firebog.net/hosts/Easyprivacy.txt
+
+  - FABRICEPRIGENT_ADS
+
+  https://v.firebog.net/hosts/Prigent-Ads.txt
+
+  - FADEMIND_TRACKERS
+
+  https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.2o7Net/hosts
+
+  - GEOFFREYFROGEYE_FIRSTPARTY
+
+  https://hostfiles.frogeye.fr/firstparty-trackers-hosts.txt
+
+  - KEES1958_TOP_ADS_TRACKERS
+
+  https://raw.githubusercontent.com/Kees1958/W3C_annual_most_used_survey_blocklist/master/TOP_EU_US_Ads_Trackers_HOST
+
+  - GEOFFREYFROGEYE_MULTIPARTY
+
+  https://hostfiles.frogeye.fr/multiparty-trackers-hosts.txt
+
+  - PERFLYST_ANDROID_TRACKERS
+
+  https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/android-tracking.txt
+
+  - PERFLYST_SMARTTV
+
+  https://raw.githubusercontent.com/Perflyst/PiHoleBlocklist/master/SmartTV.txt
+
+  - QUIDSUP_TRACKERS
+
+  https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-blocklist.txt
+
+  - DANDELIONSPROUT_ANTI_MALWARE
+
+  https://raw.githubusercontent.com/DandelionSprout/adfilt/master/Alternate%20versions%20Anti-Malware%20List/AntiMalwareHosts.txt
+
+  - DIGITALSIDE_THREATINTEL
+
+  https://osint.digitalside.it/Threat-Intel/lists/latestdomains.txt
+
+  - FABRICEPRIGENT_CRYPTOJACKING
+
+  https://v.firebog.net/hosts/Prigent-Crypto.txt
+
+  - DISCONNECT_MALVERTISING
+
+  https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt
+
+  - MANDIANT_APT1_REPORT
+
+  https://bitbucket.org/ethanr/dns-blacklists/raw/8575c9f96e5b4a1308f2f12394abd86d0927a4a0/bad_lists/Mandiant_APT1_Report_Appendix_D.txt
+
+  - PHISHINGARMY_EXTENDED
+
+  https://phishing.army/download/phishing_army_blocklist_extended.txt
+
+  - QUIDSUP_MALICIOUS
+
+  https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt
+
+  - SHALLA_MALICIOUS
+
+  https://v.firebog.net/hosts/Shalla-mal.txt
+
+  - SPAM404
+
+  https://raw.githubusercontent.com/Spam404/lists/master/main-blacklist.txt
+
+  - FADEMIND_RISKY_HOSTS
+
+  https://raw.githubusercontent.com/FadeMind/hosts.extras/master/add.Risk/hosts
+
+  - URLHAUS_MALICIOUS
+
+  https://urlhaus.abuse.ch/downloads/hostfile/
+
+  - ZERODOT1_COINBLOCKLISTS
+
+  https://zerodot1.gitlab.io/CoinBlockerLists/hosts_browser
+
+  - ANUDEEPND_FACEBOOK
+
+  https://raw.githubusercontent.com/anudeepND/blacklist/master/facebook.txt
+
+  - PRIVACYPROTECTIONTOOLS_ANTIAD
+
+  https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-domains.txt
+
+  - DEVINEENGINE_HIJACKING
+
+  https://raw.githubusercontent.com/DivineEngine/Profiles/master/Quantumult/Filter/Guard/Hijacking.list
+
+  - DEVINEENGINE_ADVERTISING
+
+  https://raw.githubusercontent.com/DivineEngine/Profiles/master/Quantumult/Filter/Guard/Advertising.list
+
+  - DEVINEENGINE_PRIVACY
+
+  https://raw.githubusercontent.com/DivineEngine/Profiles/master/Quantumult/Filter/Guard/Privacy.list
+
+  - EHPO1_LIBY
+
+  https://raw.githubusercontent.com/eHpo1/Rules/master/QuantumultX/Filter/Liby.txt
+
+  - GEQ1AN_ADBLOCK
+
+  https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/AdBlock.list
+
+  - NOBYDA_ADBLOCK
+
+  https://raw.githubusercontent.com/NobyDa/ND-AD/master/QuantumultX/AD_Block.txt
+
+  - NOBYDA_ADBLOCK_PLUS
+
+  https://raw.githubusercontent.com/NobyDa/ND-AD/master/QuantumultX/AD_Block_Plus.txt
+
+  - URLHAUS_MALICIOUS_FULL
+
+  https://curben.gitlab.io/malware-filter/urlhaus-filter-hosts.txt
+
+- Quantumult X applicable
 
 ---
 
