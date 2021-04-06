@@ -182,6 +182,10 @@
   - URLHAUS_MALICIOUS_FULL
 
   https://curben.gitlab.io/malware-filter/urlhaus-filter-hosts.txt
+  
+  - JiGuang Push/JPush
+  
+  https://www.icsi.berkeley.edu/pubs/privacy/TR-20-001.pdf
 
 - Quantumult X applicable
 
