@@ -183,7 +183,18 @@
 
   https://curben.gitlab.io/malware-filter/urlhaus-filter-hosts.txt
   
-  - JiGuang Push/JPush
+  - 移动、联通、电信、极验一键登录 / 后台获取手机号
+
+    ```
+    114dev.com
+    cmpassport.com
+    id6.me
+    nishub1.10010.com
+    opencloud.wostore.cn
+    onepass.geetest.com
+    ```
+  
+  - JiGuang Push / JPush / 极光推送
   
   https://www.icsi.berkeley.edu/pubs/privacy/TR-20-001.pdf
 
