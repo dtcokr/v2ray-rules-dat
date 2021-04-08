@@ -286,20 +286,20 @@ jobs:
           echo "# CUSTOM_URLHAUS_MALICIOUS_FULL" >> temp-reject.txt
           curl -sSL ${CUSTOM_URLHAUS_MALICIOUS_FULL} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
-          echo "# CUSTOM_MIKECTHULHU_HOSTS_1" >> temp-reject.txt
-          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_1} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_MIKECTHULHU_HOSTS_1" >> BLACKHOLE
+          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_1} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_MIKECTHULHU_HOSTS_2" >> temp-reject.txt
-          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_2} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_MIKECTHULHU_HOSTS_2" >> BLACKHOLE
+          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_2} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_MIKECTHULHU_HOSTS_3" >> temp-reject.txt
-          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_3} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_MIKECTHULHU_HOSTS_3" >> BLACKHOLE
+          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_3} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_MIKECTHULHU_HOSTS_4" >> temp-reject.txt
-          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_4} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_MIKECTHULHU_HOSTS_4" >> BLACKHOLE
+          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_4} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_MIKECTHULHU_HOSTS_5" >> temp-reject.txt
-          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_5} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_MIKECTHULHU_HOSTS_5" >> BLACKHOLE
+          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_5} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> BLACKHOLE
 
           echo "# CUSTOM_MIKECTHULHU_HOSTS_6" >> BLACKHOLE
           curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_6} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
