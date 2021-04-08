@@ -453,7 +453,9 @@ jobs:
         run: |
           wget -O direct-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/direct-list.txt
           wget -O proxy-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/proxy-list.txt
-          wget -O reject-list-with-tag-old.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/reject-list-with-tag.txt
+          wget -O reject-list-with-tag-old.txt.xz https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/reject-list-with-tag.txt.xz
+          
+          xz -d reject-list-with-tag-old.txt.xz
           
           cat direct-list-pre.txt | perl -ne '/(^full\:)([a-zA-Z0-9-_\.]*)/ && print "$2\n"' > ./direct-list-pre-full-domain
           sed '/^full\:*/d' ./direct-list-pre.txt > ./direct-list-pre-all
