@@ -528,6 +528,7 @@ jobs:
           prerelease: false
           files: |
             ./publish/*
+          body_path: ./CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
