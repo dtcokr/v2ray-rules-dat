@@ -2,6 +2,12 @@
 
 ## Fork
 
+### Procedure
+
+![procedure](https://github.com/dtcokr/v2ray-rules-dat/raw/master/procedure.png)
+
+### Custom
+
 - 加入大量自定义黑名单域名
 
   - DEVELOPERDAN_ADS_TRACKING
