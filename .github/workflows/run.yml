@@ -90,8 +90,8 @@ jobs:
           echo "CUSTOM_MIKECTHULHU_HOSTS_8=https://raw.githubusercontent.com/mikecthulhu/hosts/master/prj_block_02" >> $GITHUB_ENV
           echo "CUSTOM_MIKECTHULHU_HOSTS_9=https://raw.githubusercontent.com/mikecthulhu/hosts/master/prj_block_03" >> $GITHUB_ENV
           echo "CUSTOM_MIKECTHULHU_HOSTS_10=https://raw.githubusercontent.com/mikecthulhu/hosts/master/semicolon" >> $GITHUB_ENV
+          echo "CUSTOM_BLUESKYXN_AGHR=https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/all.txt" >> $GITHUB_ENV
           
-
         shell: bash
 
       - name: Checkout the "hidden" branch of this repo
@@ -316,6 +316,18 @@ jobs:
           echo "# CUSTOM_MIKECTHULHU_HOSTS_10" >> BLACKHOLE
           curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_10} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
+          echo "# CUSTOM_BLUESKYXN_AGHR" >> temp-reject.txt
+          curl -sSL ${CUSTOM_BLUESKYXN_AGHR} | perl -ne '/^\|\|([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\^$/ && print "$1\n"' | perl -ne 'print if not /^[0-9]{1,3}(\.[0-9]{1,3}){3}$/' >> temp-reject.txt
+
+          echo "# CUSTOM_BLUESKYXN_AGHR" >> temp-reject.txt
+          curl -sSL ${CUSTOM_BLUESKYXN_AGHR} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+
+          echo "# CUSTOM_BLUESKYXN_AGHR" >> temp-reject.txt
+          curl -sSL ${CUSTOM_BLUESKYXN_AGHR} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+
+          echo "# CUSTOM_BLUESKYXN_AGHR" >> temp-reject.txt
+          curl -sSL ${CUSTOM_BLUESKYXN_AGHR} | perl -ne '/^([0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+
       - name: Reserve `full`, `regexp` and `keyword` type of rules from custom lists to "reserve" files
         run: |
           curl -sSL ${CUSTOM_DIRECT} | perl -ne '/^((full|keyword):[^:]+)(\n$|:@.+)/ && print "$1\n"' | sort --ignore-case -u > direct-reserve.txt
@@ -444,6 +456,7 @@ jobs:
           diff ./reject-list-sorted ./google-cn-ov-sorted | awk '/^>/{print $2}' > ./google-cn-pre-ov
 
           cat ./reject-list-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock.list
+          cat ./reject-list-sorted | perl -ne '/\.cn$/ && print' | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock-CN.list
           cat ./direct-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect.list
           cat ./proxy-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy.list
           cat ./apple-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillAppleCN-DIRECT.list
@@ -507,7 +520,7 @@ jobs:
           install -p {proxy,direct,reject}-list.txt ./publish/
           install -p {apple-cn,google-cn,gfw,greatfire,win-spy,win-update,win-extra}.txt ./publish/
           
-          install -p {OverkillAdBlock,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list ./publish/
+          install -p {OverkillAdBlock,OverkillAdBlock-CN,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list ./publish/
           
           install -p reject-list-with-tag.txt.xz ./publish/
           
@@ -518,6 +531,7 @@ jobs:
           install -p {direct,proxy,reject}.txt ./hid/
           install -p adlist_tagging.py ./hid/
           install -p domain_generalization.py ./hid/
+          install -p cn_reject.py ./hid/
 
           cd ./publish || exit 1
           zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list
