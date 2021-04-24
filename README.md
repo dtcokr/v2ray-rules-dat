@@ -204,6 +204,10 @@
   - JiGuang Push / JPush / 极光推送
   
   https://www.icsi.berkeley.edu/pubs/privacy/TR-20-001.pdf
+  
+  - BLUESKYXN_AGHR
+  
+  https://github.com/BlueSkyXN/AdGuardHomeRules
 
 - Quantumult X applicable
 
