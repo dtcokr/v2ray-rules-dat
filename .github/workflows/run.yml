@@ -433,7 +433,7 @@ jobs:
           cat ./temp-win-extra > ./community/data/win-extra
           cat ./temp-win-extra > win-extra.txt
           
-      - name: Create `OverkillAdBlock`, `OverkillDirect`, `OverkillProxy`, `OverkillAppleCN-DIRECT`, `OverkillGoogleCN-DIRECT` lists
+      - name: Create `OverkillAdBlock`, `OverkillAdBlock-CN`, `OverkillDirect`, `OverkillProxy`, `OverkillAppleCN-DIRECT`, `OverkillGoogleCN-DIRECT` lists
         run: |
           cat direct-list.txt | perl -ne '/(^full\:)([a-zA-Z0-9-_\.]*)/ && print "$2\n"' > ./direct-list-full-domain
           cat proxy-list.txt | perl -ne '/(^full\:)([a-zA-Z0-9-_\.]*)/ && print "$2\n"' > ./proxy-list-full-domain
@@ -534,7 +534,7 @@ jobs:
           install -p cn_reject.py ./hid/
 
           cd ./publish || exit 1
-          zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list
+          zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillAdBlock-CN,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list
           sha256sum geosite.dat > geosite.dat.sha256sum
           sha256sum rules.zip > rules.zip.sha256sum
       
