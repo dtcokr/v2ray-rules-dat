@@ -433,7 +433,7 @@ jobs:
           cat ./temp-win-extra > ./community/data/win-extra
           cat ./temp-win-extra > win-extra.txt
           
-      - name: Create `OverkillAdBlock`, `OverkillAdBlock-CN`, `OverkillDirect`, `OverkillProxy`, `OverkillAppleCN-DIRECT`, `OverkillGoogleCN-DIRECT` lists
+      - name: Create `OverkillAdBlock`, `OverkillAdBlock-CN`, `OverkillAdBlock-Lite`, `OverkillDirect`, `OverkillProxy`, `OverkillAppleCN-DIRECT`, `OverkillGoogleCN-DIRECT` lists
         run: |
           cat direct-list.txt | perl -ne '/(^full\:)([a-zA-Z0-9-_\.]*)/ && print "$2\n"' > ./direct-list-full-domain
           cat proxy-list.txt | perl -ne '/(^full\:)([a-zA-Z0-9-_\.]*)/ && print "$2\n"' > ./proxy-list-full-domain
@@ -461,6 +461,16 @@ jobs:
           cat ./proxy-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy.list
           cat ./apple-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillAppleCN-DIRECT.list
           cat ./google-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillGoogleCN-DIRECT.list
+
+          chmod +x cn_reject.py
+          ./cn_reject.py reject-list-sorted direct-list-ov-sorted.txt ovlite-d
+          ./cn_reject.py reject-list-sorted proxy-list-ov-sorted.txt ovlite-p
+          cat ./reject-list-sorted | perl -ne '/\.cn$/ && print' > ovlite-c
+          cat ovlite-d > pre-ovlite
+          cat ovlite-p >> pre-ovlite
+          cat ovlite-c >> pre-ovlite
+          sort --ignore-case -u pre-ovlite > pre-ovlite-sorted
+          cat pre-ovlite-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock-Lite.list
 
       - name: Create change log
         run: |
@@ -520,7 +530,7 @@ jobs:
           install -p {proxy,direct,reject}-list.txt ./publish/
           install -p {apple-cn,google-cn,gfw,greatfire,win-spy,win-update,win-extra}.txt ./publish/
           
-          install -p {OverkillAdBlock,OverkillAdBlock-CN,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list ./publish/
+          install -p {OverkillAdBlock,OverkillAdBlock-CN,OverkillAdBlock-Lite,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list ./publish/
           
           install -p reject-list-with-tag.txt.xz ./publish/
           
@@ -534,7 +544,7 @@ jobs:
           install -p cn_reject.py ./hid/
 
           cd ./publish || exit 1
-          zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillAdBlock-CN,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list
+          zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillAdBlock-CN,OverkillAdBlock-Lite,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list
           sha256sum geosite.dat > geosite.dat.sha256sum
           sha256sum rules.zip > rules.zip.sha256sum
       
