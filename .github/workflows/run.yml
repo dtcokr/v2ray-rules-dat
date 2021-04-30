@@ -504,6 +504,12 @@ jobs:
           sort --ignore-case -u pre-ovlite > pre-ovlite-sorted
           cat pre-ovlite-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock-Lite.list
 
+          echo "OVA=$(wc -l < OverkillAdBlock.list)" >> $GITHUB_ENV
+          echo "OVACN=$(wc -l < OverkillAdBlock-CN.list)" >> $GITHUB_ENV
+          echo "OVAL=$(wc -l < OverkillAdBlock-Lite.list)" >> $GITHUB_ENV
+          echo "OVD=$(wc -l < OverkillDirect.list)" >> $GITHUB_ENV
+          echo "OVP=$(wc -l < OverkillProxy.list)" >> $GITHUB_ENV
+
       - name: Create change log
         run: |
           wget -O direct-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/direct-list.txt
@@ -620,3 +626,24 @@ jobs:
       - name: Trigger auto update actions
         run: |
           curl -XPOST -u "${{secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" ${{secrets.PAT_URL}} --data '{"event_type": "Chain Reaction"}'
+          echo "FDATE=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+
+      - name: Call Telegram
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.CHAT_ID }}
+          token: ${{ secrets.BOT_TOKEN }}
+          message: |
+            *#V2RulesDatUpdated*
+            
+            
+            === Count ===
+            `OverkillAdblock.list`: ${{ env.OVA }} records
+            `OverkillAdblock-CN.list`: ${{ env.OVACN }} records
+            `OverkillAdblock-Lite.list`: ${{ env.OVAL }} records
+            `OverkillDirect.list`: ${{ env.OVD }} records
+            `OverkillProxy.list`: ${{ env.OVP }} records
+            
+            === Date ===
+            ${{ env.FDATE }} GMT
+          format: markdown
