@@ -84,12 +84,6 @@ jobs:
           echo "CUSTOM_MIKECTHULHU_HOSTS_2=https://raw.githubusercontent.com/mikecthulhu/hosts/master/host_003" >> $GITHUB_ENV
           echo "CUSTOM_MIKECTHULHU_HOSTS_3=https://raw.githubusercontent.com/mikecthulhu/hosts/master/host_004" >> $GITHUB_ENV
           echo "CUSTOM_MIKECTHULHU_HOSTS_4=https://raw.githubusercontent.com/mikecthulhu/hosts/master/hosts" >> $GITHUB_ENV
-          echo "CUSTOM_MIKECTHULHU_HOSTS_5=https://raw.githubusercontent.com/mikecthulhu/hosts/master/hosts_ex" >> $GITHUB_ENV
-          echo "CUSTOM_MIKECTHULHU_HOSTS_6=https://raw.githubusercontent.com/mikecthulhu/hosts/master/hosts_excluded" >> $GITHUB_ENV
-          echo "CUSTOM_MIKECTHULHU_HOSTS_7=https://raw.githubusercontent.com/mikecthulhu/hosts/master/prj_block_01" >> $GITHUB_ENV
-          echo "CUSTOM_MIKECTHULHU_HOSTS_8=https://raw.githubusercontent.com/mikecthulhu/hosts/master/prj_block_02" >> $GITHUB_ENV
-          echo "CUSTOM_MIKECTHULHU_HOSTS_9=https://raw.githubusercontent.com/mikecthulhu/hosts/master/prj_block_03" >> $GITHUB_ENV
-          echo "CUSTOM_MIKECTHULHU_HOSTS_10=https://raw.githubusercontent.com/mikecthulhu/hosts/master/semicolon" >> $GITHUB_ENV
           echo "CUSTOM_BLUESKYXN_AGHR=https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/all.txt" >> $GITHUB_ENV
           
         shell: bash
@@ -309,24 +303,6 @@ jobs:
 
           echo "# CUSTOM_MIKECTHULHU_HOSTS_4" >> temp-reject.txt
           curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_4} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
-
-          echo "# CUSTOM_MIKECTHULHU_HOSTS_5" >> temp-reject.txt
-          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_5} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
-
-          echo "# CUSTOM_MIKECTHULHU_HOSTS_6" >> temp-reject.txt
-          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_6} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
-
-          echo "# CUSTOM_MIKECTHULHU_HOSTS_7" >> temp-reject.txt
-          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_7} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
-
-          echo "# CUSTOM_MIKECTHULHU_HOSTS_8" >> temp-reject.txt
-          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_8} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
-
-          echo "# CUSTOM_MIKECTHULHU_HOSTS_9" >> temp-reject.txt
-          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_9} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
-
-          echo "# CUSTOM_MIKECTHULHU_HOSTS_10" >> temp-reject.txt
-          curl -sSL ${CUSTOM_MIKECTHULHU_HOSTS_10} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
           echo "# CUSTOM_BLUESKYXN_AGHR" >> temp-reject.txt
           curl -sSL ${CUSTOM_BLUESKYXN_AGHR} | perl -ne '/^\|\|([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\^$/ && print "$1\n"' | perl -ne 'print if not /^[0-9]{1,3}(\.[0-9]{1,3}){3}$/' >> temp-reject.txt
