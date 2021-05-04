@@ -593,7 +593,7 @@ jobs:
           to: ${{ secrets.CHAT_ID }}
           token: ${{ secrets.BOT_TOKEN }}
           message: |
-            *#V2Ray_Rules_Dat_Updated*
+            *#V2RayRulesDatUpdated*
             
             
             === Count ===
