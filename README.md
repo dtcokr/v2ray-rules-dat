@@ -189,10 +189,6 @@
   - URLHAUS_MALICIOUS_FULL
 
   https://curben.gitlab.io/malware-filter/urlhaus-filter-hosts.txt
-
-  - MIKECTHULHU_HOSTS
-
-  https://raw.githubusercontent.com/mikecthulhu/hosts
   
   - 移动、联通、电信、极验一键登录 / 后台获取手机号
 
