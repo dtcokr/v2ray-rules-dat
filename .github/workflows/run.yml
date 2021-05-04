@@ -496,10 +496,8 @@ jobs:
 
           chmod +x cn_reject.py
           ./cn_reject.py reject-list-sorted direct-list-ov-sorted.txt ovlite-d
-          ./cn_reject.py reject-list-sorted proxy-list-ov-sorted.txt ovlite-p
           cat ./reject-list-sorted | perl -ne '/\.cn$/ && print' > ovlite-c
           cat ovlite-d > pre-ovlite
-          cat ovlite-p >> pre-ovlite
           cat ovlite-c >> pre-ovlite
           sort --ignore-case -u pre-ovlite > pre-ovlite-sorted
           cat pre-ovlite-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock-Lite.list
@@ -581,6 +579,7 @@ jobs:
           install -p domain_generalization.py ./hid/
           install -p cn_reject.py ./hid/
           install -p findRedundantDomain.py ./hid/
+          install -p HISTORY.md ./hid/
 
           cd ./publish || exit 1
           zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillAdBlock-CN,OverkillAdBlock-Lite,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list
