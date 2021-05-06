@@ -81,6 +81,9 @@ jobs:
           echo "CUSTOM_NOBYDA_ADBLOCK_PLUS=https://raw.githubusercontent.com/NobyDa/ND-AD/master/QuantumultX/AD_Block_Plus.txt" >> $GITHUB_ENV
           echo "CUSTOM_URLHAUS_MALICIOUS_FULL=https://curben.gitlab.io/malware-filter/urlhaus-filter-hosts.txt" >> $GITHUB_ENV
           echo "CUSTOM_BLUESKYXN_AGHR=https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/all.txt" >> $GITHUB_ENV
+          echo "CUSTOM_STEVENBLACK_FGS=https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-social/hosts" >> $GITHUB_ENV
+          echo "CUSTOM_NOTRACKING_BLOCKLISTS=https://raw.githubusercontent.com/notracking/hosts-blocklists/master/dnscrypt-proxy/dnscrypt-proxy.blacklist.txt" >> $GITHUB_ENV
+          echo "CUSTOM_HOSHSADIQ_NOCOIN=https://raw.githubusercontent.com/hoshsadiq/adblock-nocoin-list/master/hosts.txt" >> $GITHUB_ENV
           
         shell: bash
 
@@ -299,6 +302,15 @@ jobs:
 
           echo "# CUSTOM_BLUESKYXN_AGHR" >> temp-reject.txt
           curl -sSL ${CUSTOM_BLUESKYXN_AGHR} | perl -ne '/^([0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+
+          echo "# CUSTOM_STEVENBLACK_FGS" >> temp-reject.txt
+          curl -sSL ${CUSTOM_STEVENBLACK_FGS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+
+          echo "# CUSTOM_NOTRACKING_BLOCKLISTS" >> temp-reject.txt
+          curl -sSL ${CUSTOM_NOTRACKING_BLOCKLISTS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+
+          echo "# CUSTOM_HOSHSADIQ_NOCOIN">> temp-reject.txt
+          curl -sSL ${CUSTOM_HOSHSADIQ_NOCOIN} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
       - name: Reserve `full`, `regexp` and `keyword` type of rules from custom lists to "reserve" files
         run: |
