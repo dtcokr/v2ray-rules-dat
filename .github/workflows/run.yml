@@ -434,7 +434,7 @@ jobs:
           sort --ignore-case -u ./apple-cn-ov > ./apple-cn-ov-sorted
           sort --ignore-case -u ./google-cn-ov > ./google-cn-ov-sorted
           
-          diff ./reject-list-sorted ./proxy-list-ov-sorted.txt | awk '/^>/{print $2}' > ./proxy-list-pre-ov
+          cat ./proxy-list-ov-sorted.txt > ./proxy-list-pre-ov
           diff ./reject-list-sorted ./direct-list-ov-sorted.txt | awk '/^>/{print $2}' > ./direct-list-pre-ov
           diff ./reject-list-sorted ./apple-cn-ov-sorted | awk '/^>/{print $2}' > ./apple-cn-pre-ov
           diff ./reject-list-sorted ./google-cn-ov-sorted | awk '/^>/{print $2}' > ./google-cn-pre-ov
