@@ -209,9 +209,9 @@
   
   https://github.com/BlueSkyXN/AdGuardHomeRules
 
-  - StevenBlack-fakenews-gambling-social
+  - StevenBlack-fakenews-gambling
 
-  https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling-social/hosts
+  https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts
 
   - NOTRACKING_BLOCKLISTS
 
