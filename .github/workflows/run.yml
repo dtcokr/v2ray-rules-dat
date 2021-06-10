@@ -466,6 +466,14 @@ jobs:
           cat ./apple-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillAppleCN-DIRECT.list
           cat ./google-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillGoogleCN-DIRECT.list
 
+          sort -f -u ./proxy-ip.txt > proxy-ip-sorted.txt
+          sort -f -u ./direct-ip.txt > direct-ip-sorted.txt
+          sort -f -u ./reject-ip.txt > reject-ip-sorted.txt
+
+          cat ./proxy-ip-sorted.txt > proxy-ip.txt
+          cat ./direct-ip-sorted.txt > direct-ip.txt
+          cat ./reject-ip-sorted.txt > reject-ip.txt
+
           cat ./proxy-ip.txt >> OverkillProxy.list
           cat ./direct-ip.txt >> OverkillDirect.list
 
