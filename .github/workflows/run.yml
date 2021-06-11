@@ -623,11 +623,11 @@ jobs:
             
             
             === Count ===
-            `OverkillAdblock.list`: __${{ env.OVA }}__ records
-            `OverkillAdblock-CN.list`: __${{ env.OVACN }}__ records
-            `OverkillAdblock-Lite.list`: __${{ env.OVAL }}__ records
-            `OverkillDirect.list`: __${{ env.OVD }}__ records
-            `OverkillProxy.list`: __${{ env.OVP }}__ records
+            `OverkillAdblock.list`: ${{ env.OVA }} records
+            `OverkillAdblock-CN.list`: ${{ env.OVACN }} records
+            `OverkillAdblock-Lite.list`: ${{ env.OVAL }} records
+            `OverkillDirect.list`: ${{ env.OVD }} records
+            `OverkillProxy.list`: ${{ env.OVP }} records
             
             === Date ===
             ${{ env.FDATE }} GMT
