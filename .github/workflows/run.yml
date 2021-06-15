@@ -352,14 +352,31 @@ jobs:
           sort --ignore-case -u ./direct.txt > ./direct-sorted.txt
           sort --ignore-case -u ./proxy.txt > ./proxy-sorted.txt
           sort --ignore-case -u ./reject.txt > ./reject-sorted.txt
+
+          chmod +x findRedundantDomain.py
+          ./findRedundantDomain.py ./direct.txt ./direct-redundant
+          ./findRedundantDomain.py ./proxy.txt ./proxy-redundant
+          ./findRedundantDomain.py ./reject.txt ./reject-redundant
+
+          [ ! -f "direct-redundant" ] && touch direct-redundant
+          [ ! -f "proxy-redundant" ] && touch proxy-redundant
+          [ ! -f "reject-redundant" ] && touch reject-redundant
+
+          sort --ignore-case -u direct-redundant > direct-redundant-sorted
+          sort --ignore-case -u proxy-redundant > proxy-redundant-sorted
+          sort --ignore-case -u reject-redundant > reject-redundant-sorted
+
+          diff ./direct-redundant-sorted ./direct-sorted.txt | awk '/^>/{print $2}' > ./direct-clean
+          diff ./proxy-redundant-sorted ./proxy-sorted.txt | awk '/^>/{print $2}' > ./proxy-clean
+          diff ./reject-redundant-sorted ./reject-sorted.txt | awk '/^>/{print $2}' > ./reject-clean
           
           cat ./direct-need-to-remove-sorted.txt > ./direct-need-to-remove.txt
           cat ./proxy-need-to-remove-sorted.txt > ./proxy-need-to-remove.txt
           cat ./reject-need-to-remove-sorted.txt > ./reject-need-to-remove.txt
           
-          cat ./direct-sorted.txt > ./direct.txt
-          cat ./proxy-sorted.txt > ./proxy.txt
-          cat ./reject-sorted.txt > ./reject.txt
+          cat ./direct-clean > ./direct.txt
+          cat ./proxy-clean > ./proxy.txt
+          cat ./reject-clean > ./reject.txt
           
           diff ./direct-need-to-remove-sorted.txt ./direct-list-without-redundant | awk '/^>/{print $2}' > temp-cn.txt
           diff ./proxy-need-to-remove-sorted.txt ./proxy-list-without-redundant | awk '/^>/{print $2}' > temp-geolocation-\!cn.txt
