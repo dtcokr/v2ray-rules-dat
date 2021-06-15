@@ -513,8 +513,11 @@ jobs:
           echo "OVA=$(wc -l < OverkillAdBlock.list)" >> $GITHUB_ENV
           echo "OVACN=$(wc -l < OverkillAdBlock-CN.list)" >> $GITHUB_ENV
           echo "OVAL=$(wc -l < OverkillAdBlock-Lite.list)" >> $GITHUB_ENV
+          echo "OVALE=$(wc -l < OverkillAdBlock-Lean.list)" >> $GITHUB_ENV
           echo "OVD=$(wc -l < OverkillDirect.list)" >> $GITHUB_ENV
+          echo "OVDLE=$(wc -l < OverkillDirect-Lean.list)" >> $GITHUB_ENV
           echo "OVP=$(wc -l < OverkillProxy.list)" >> $GITHUB_ENV
+          echo "OVPLE=$(wc -l < OverkillProxy-Lean.list)" >> $GITHUB_ENV
 
       - name: Create change log
         run: |
@@ -648,11 +651,16 @@ jobs:
             
             
             === Count ===
-            `OverkillAdblock.list`: ${{ env.OVA }} records
-            `OverkillAdblock-CN.list`: ${{ env.OVACN }} records
-            `OverkillAdblock-Lite.list`: ${{ env.OVAL }} records
-            `OverkillDirect.list`: ${{ env.OVD }} records
-            `OverkillProxy.list`: ${{ env.OVP }} records
+            `Adblock`: *${{ env.OVA }}*
+            `Direct`: *${{ env.OVD }}*
+            `Proxy`: *${{ env.OVP }}*
+
+            `Adblock-CN`: *${{ env.OVACN }}*
+            `Adblock-Lite`: *${{ env.OVAL }}*
+
+            `Adblock-Lean`: *${{ env.OVALE }}*
+            `Direct-Lean`: *${{ env.OVDLE }}*
+            `Proxy-Lean`: *${{ env.OVPLE }}*
             
             === Date ===
             ${{ env.FDATE }} GMT
