@@ -482,6 +482,7 @@ jobs:
           cat direct.txt >> direct-upper-sorted
           sort -fu direct-upper-sorted > direct-upper-sorted-2
           ./findRedundantDomain.py direct-upper-sorted-2 direct-upper-sorted-2-redundant
+          [ ! -f "direct-upper-sorted-2-redundant" ] && touch direct-upper-sorted-2-redundant
           sort -fu direct-upper-sorted-2-redundant > direct-upper-sorted-2-redundant-sorted
           diff direct-upper-sorted-2-redundant-sorted direct-upper-sorted-2 | awk '/^>/{print $2}' > direct-pre-lean
 
@@ -491,6 +492,7 @@ jobs:
           cat proxy.txt >> proxy-upper-sorted
           sort -fu proxy-upper-sorted > proxy-upper-sorted-2
           ./findRedundantDomain.py proxy-upper-sorted-2 proxy-upper-sorted-2-redundant
+          [ ! -f "proxy-upper-sorted-2-redundant" ] && touch proxy-upper-sorted-2-redundant
           sort -fu proxy-upper-sorted-2-redundant > proxy-upper-sorted-2-redundant-sorted
           diff proxy-upper-sorted-2-redundant-sorted proxy-upper-sorted-2 | awk '/^>/{print $2}' > proxy-pre-lean
 
