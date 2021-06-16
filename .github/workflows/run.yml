@@ -503,9 +503,6 @@ jobs:
           cat ./direct-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect-Lean.list
           cat ./proxy-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy-Lean.list
 
-          cat proxy-pre-lean > proxy.txt
-          cat direct-pre-lean > direct.txt
-
           sort -f -u ./proxy-ip.txt > proxy-ip-sorted.txt
           sort -f -u ./direct-ip.txt > direct-ip-sorted.txt
           sort -f -u ./reject-ip.txt > reject-ip-sorted.txt
@@ -533,8 +530,6 @@ jobs:
 
           cat ./reject-ip.txt >> OverkillAdBlock-Lite.list
           cat ./reject-ip.txt >> OverkillAdBlock-Lean.list
-
-          cat pre-ovalean-sorted > reject.txt
 
           echo "OVA=$(wc -l < OverkillAdBlock.list)" >> $GITHUB_ENV
           echo "OVACN=$(wc -l < OverkillAdBlock-CN.list)" >> $GITHUB_ENV
