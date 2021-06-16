@@ -521,6 +521,9 @@ jobs:
           chmod +x cn_reject.py
           ./cn_reject.py reject-list-sorted direct-list-ov-sorted.txt ovlite-d
           ./cn_reject.py reject-list-sorted direct-pre-lean ovalean-d
+          cat ./reject.txt >> ovalean-d
+          sort -fu ovalean-d > ovalean-d-sorted
+          cat ovalean-d-sorted > ovalean-d
           cat ./reject-list-sorted | perl -ne '/\.cn$/ && print' > ovlite-c
           cat ovlite-d > pre-ovlite
           cat ovalean-d > pre-ovalean
