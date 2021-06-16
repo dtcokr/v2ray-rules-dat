@@ -476,15 +476,35 @@ jobs:
           diff ./reject-list-sorted-redundant-sorted ./reject-list-sorted | awk '/^>/{print $2}' > ./reject-list-sorted-clean
           cat ./reject-list-sorted-clean > reject-list-sorted
 
+          chmod +x find_upper.py findRedundantDomain.py
+          ./find_upper.py ./direct.txt ./direct-list-pre-ov direct-upper
+          sort -fu direct-upper > direct-upper-sorted
+          cat direct.txt >> direct-upper-sorted
+          sort -fu direct-upper-sorted > direct-upper-sorted-2
+          ./findRedundantDomain.py direct-upper-sorted-2 direct-upper-sorted-2-redundant
+          sort -fu direct-upper-sorted-2-redundant > direct-upper-sorted-2-redundant-sorted
+          diff direct-upper-sorted-2-redundant-sorted direct-upper-sorted-2 | awk '/^>/{print $2}' > direct-pre-lean
+
+          chmod +x find_upper.py findRedundantDomain.py
+          ./find_upper.py ./proxy.txt ./proxy-list-pre-ov proxy-upper
+          sort -fu proxy-upper > proxy-upper-sorted
+          cat proxy.txt >> proxy-upper-sorted
+          sort -fu proxy-upper-sorted > proxy-upper-sorted-2
+          ./findRedundantDomain.py proxy-upper-sorted-2 proxy-upper-sorted-2-redundant
+          sort -fu proxy-upper-sorted-2-redundant > proxy-upper-sorted-2-redundant-sorted
+          diff proxy-upper-sorted-2-redundant-sorted proxy-upper-sorted-2 | awk '/^>/{print $2}' > proxy-pre-lean
+
           cat ./reject-list-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock.list
           cat ./reject-list-sorted | perl -ne '/\.cn$/ && print' | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock-CN.list
           cat ./direct-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect.list
           cat ./proxy-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy.list
           cat ./apple-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillAppleCN-DIRECT.list
           cat ./google-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillGoogleCN-DIRECT.list
-          cat ./direct.txt | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect-Lean.list
-          cat ./proxy.txt | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy-Lean.list
-          cat ./reject.txt | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock-Lean.list
+          cat ./direct-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect-Lean.list
+          cat ./proxy-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy-Lean.list
+
+          cat proxy-pre-lean > proxy.txt
+          cat direct-pre-lean > direct.txt
 
           sort -f -u ./proxy-ip.txt > proxy-ip-sorted.txt
           sort -f -u ./direct-ip.txt > direct-ip-sorted.txt
@@ -501,14 +521,20 @@ jobs:
 
           chmod +x cn_reject.py
           ./cn_reject.py reject-list-sorted direct-list-ov-sorted.txt ovlite-d
+          ./cn_reject.py reject-list-sorted direct-pre-lean ovalean-d
           cat ./reject-list-sorted | perl -ne '/\.cn$/ && print' > ovlite-c
           cat ovlite-d > pre-ovlite
+          cat ovalean-d > pre-ovalean
           cat ovlite-c >> pre-ovlite
           sort --ignore-case -u pre-ovlite > pre-ovlite-sorted
+          sort --ignore-case -u pre-ovalean > pre-ovalean-sorted
           cat pre-ovlite-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock-Lite.list
+          cat pre-ovalean-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock-Lean.list
 
           cat ./reject-ip.txt >> OverkillAdBlock-Lite.list
           cat ./reject-ip.txt >> OverkillAdBlock-Lean.list
+
+          cat pre-ovalean-sorted > reject.txt
 
           echo "OVA=$(wc -l < OverkillAdBlock.list)" >> $GITHUB_ENV
           echo "OVACN=$(wc -l < OverkillAdBlock-CN.list)" >> $GITHUB_ENV
@@ -592,6 +618,7 @@ jobs:
           install -p domain_generalization.py ./hid/
           install -p cn_reject.py ./hid/
           install -p findRedundantDomain.py ./hid/
+          install -p find_upper.py ./hid/
           install -p HISTORY.md ./hid/
           install -p {direct,proxy,reject}-ip.txt ./hid/
 
