@@ -505,6 +505,9 @@ jobs:
           chmod +x find_upper.py findRedundantDomain.py
           ./find_upper.py ./reject.txt ./reject-list-sorted reject-upper
           sort -fu reject-upper > reject-upper-sorted
+          chmod +x cn_reject.py
+          ./cn_reject.py reject-list-sorted direct-pre-lean ovalean-d
+          cat ovalean-d >> reject-upper-sorted
           cat reject.txt >> reject-upper-sorted
           sort -fu reject-upper-sorted > reject-upper-sorted-2
           ./findRedundantDomain.py reject-upper-sorted-2 reject-upper-sorted-2-redundant
@@ -536,7 +539,6 @@ jobs:
 
           chmod +x cn_reject.py
           ./cn_reject.py reject-list-sorted direct-list-ov-sorted.txt ovlite-d
-          ./cn_reject.py reject-list-sorted direct-pre-lean ovalean-d
           cat ./reject.txt >> ovalean-d
           sort -fu ovalean-d > ovalean-d-sorted
           cat ovalean-d-sorted > ovalean-d
