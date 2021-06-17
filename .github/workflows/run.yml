@@ -319,6 +319,12 @@ jobs:
 
       - name: Add proxy, direct and reject domains from "hidden" branch to appropriate temp files
         run: |
+          sed -i '/^$/d' proxy.txt
+          sed -i '/^$/d' direct.txt
+          sed -i '/^$/d' reject.txt
+          sed -i '/^$/d' proxy-ip.txt
+          sed -i '/^$/d' direct-ip.txt
+          sed -i '/^$/d' reject-ip.txt
           cat proxy.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-proxy.txt
           cat direct.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-direct.txt
           echo "# CUSTOM_FROM_HIDDEN" >> temp-reject.txt
