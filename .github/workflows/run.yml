@@ -496,6 +496,16 @@ jobs:
           sort -fu proxy-upper-sorted-2-redundant > proxy-upper-sorted-2-redundant-sorted
           diff proxy-upper-sorted-2-redundant-sorted proxy-upper-sorted-2 | awk '/^>/{print $2}' > proxy-pre-lean
 
+          chmod +x find_upper.py findRedundantDomain.py
+          ./find_upper.py ./reject.txt ./reject-list-sorted reject-upper
+          sort -fu reject-upper > reject-upper-sorted
+          cat reject.txt >> reject-upper-sorted
+          sort -fu reject-upper-sorted > reject-upper-sorted-2
+          ./findRedundantDomain.py reject-upper-sorted-2 reject-upper-sorted-2-redundant
+          [ ! -f "reject-upper-sorted-2-redundant" ] && touch reject-upper-sorted-2-redundant
+          sort -fu reject-upper-sorted-2-redundant > reject-upper-sorted-2-redundant-sorted
+          diff reject-upper-sorted-2-redundant-sorted reject-upper-sorted-2 | awk '/^>/{print $2}' > reject-pre-lean
+
           cat ./reject-list-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock.list
           cat ./reject-list-sorted | perl -ne '/\.cn$/ && print' | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock-CN.list
           cat ./direct-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect.list
@@ -531,7 +541,7 @@ jobs:
           sort --ignore-case -u pre-ovlite > pre-ovlite-sorted
           sort --ignore-case -u pre-ovalean > pre-ovalean-sorted
           cat pre-ovlite-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock-Lite.list
-          cat pre-ovalean-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock-Lean.list
+          cat reject-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock-Lean.list
 
           cat ./reject-ip.txt >> OverkillAdBlock-Lite.list
           cat ./reject-ip.txt >> OverkillAdBlock-Lean.list
