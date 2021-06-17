@@ -524,6 +524,9 @@ jobs:
           cat ./direct-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect-Lean.list
           cat ./proxy-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy-Lean.list
 
+          cat proxy-pre-lean > proxy.result
+          cat direct-pre-lean > direct.result
+
           sort -f -u ./proxy-ip.txt > proxy-ip-sorted.txt
           sort -f -u ./direct-ip.txt > direct-ip-sorted.txt
           sort -f -u ./reject-ip.txt > reject-ip-sorted.txt
@@ -550,6 +553,8 @@ jobs:
           sort --ignore-case -u pre-ovalean > pre-ovalean-sorted
           cat pre-ovlite-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock-Lite.list
           cat reject-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock-Lean.list
+
+          cat reject-pre-lean > reject.result
 
           cat ./reject-ip.txt >> OverkillAdBlock-Lite.list
           cat ./reject-ip.txt >> OverkillAdBlock-Lean.list
@@ -639,6 +644,7 @@ jobs:
           install -p find_upper.py ./hid/
           install -p HISTORY.md ./hid/
           install -p {direct,proxy,reject}-ip.txt ./hid/
+          install -p {direct,proxy,reject}.result ./hid/
 
           cd ./publish || exit 1
           zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list OverkillAdBlock-{CN,Lite}.list Overkill{AdBlock,Direct,Proxy}-Lean.list
