@@ -526,7 +526,7 @@ jobs:
           cat ./proxy-ip.txt >> OverkillProxy.list
           cat ./proxy-ip.txt >> OverkillProxy-Lean.list
           cat ./direct-ip.txt >> OverkillDirect.list
-          cat ./direct-ip.txt >> OverkillProxy-Lean.list
+          cat ./direct-ip.txt >> OverkillDirect-Lean.list
 
           chmod +x cn_reject.py
           ./cn_reject.py reject-list-sorted direct-list-ov-sorted.txt ovlite-d
