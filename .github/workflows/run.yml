@@ -559,6 +559,10 @@ jobs:
           cat ./reject-ip.txt >> OverkillAdBlock-Lite.list
           cat ./reject-ip.txt >> OverkillAdBlock-Lean.list
 
+          cat direct.result > direct.txt
+          cat proxy.result > proxy.txt
+          cat reject.result > reject.txt
+
           echo "OVA=$(wc -l < OverkillAdBlock.list)" >> $GITHUB_ENV
           echo "OVACN=$(wc -l < OverkillAdBlock-CN.list)" >> $GITHUB_ENV
           echo "OVAL=$(wc -l < OverkillAdBlock-Lite.list)" >> $GITHUB_ENV
@@ -644,7 +648,6 @@ jobs:
           install -p find_upper.py ./hid/
           install -p HISTORY.md ./hid/
           install -p {direct,proxy,reject}-ip.txt ./hid/
-          install -p {direct,proxy,reject}.result ./hid/
 
           cd ./publish || exit 1
           zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list OverkillAdBlock-{CN,Lite}.list Overkill{AdBlock,Direct,Proxy}-Lean.list
