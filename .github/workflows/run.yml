@@ -559,10 +559,6 @@ jobs:
           cat ./reject-ip.txt >> OverkillAdBlock-Lite.list
           cat ./reject-ip.txt >> OverkillAdBlock-Lean.list
 
-          cat direct.result > direct.txt
-          cat proxy.result > proxy.txt
-          cat reject.result > reject.txt
-
           echo "OVA=$(wc -l < OverkillAdBlock.list)" >> $GITHUB_ENV
           echo "OVACN=$(wc -l < OverkillAdBlock-CN.list)" >> $GITHUB_ENV
           echo "OVAL=$(wc -l < OverkillAdBlock-Lite.list)" >> $GITHUB_ENV
