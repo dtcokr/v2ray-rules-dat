@@ -619,35 +619,31 @@ jobs:
           wget -O ovp-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillProxy.list
           
           OVA_OLD=$(wc -l < ova-old.list)
-          echo "OVACN_OLD=$(wc -l < ovacn-old.list)" >> $GITHUB_ENV
-          echo "OVAL_OLD=$(wc -l < oval-old.list)" >> $GITHUB_ENV
-          echo "OVALE_OLD=$(wc -l < ovale-old.list)" >> $GITHUB_ENV
-          echo "OVD_OLD=$(wc -l < ovd-old.list)" >> $GITHUB_ENV
-          echo "OVDLE_OLD=$(wc -l < ovdle-old.list)" >> $GITHUB_ENV
-          echo "OVP_OLD=$(wc -l < ovp-old.list)" >> $GITHUB_ENV
-          echo "OVPLE_OLD=$(wc -l < ovple-old.list)" >> $GITHUB_ENV
+          OVACN_OLD=$(wc -l < ovacn-old.list)
+          OVAL_OLD=$(wc -l < oval-old.list)
+          OVALE_OLD=$(wc -l < ovale-old.list)
+          OVD_OLD=$(wc -l < ovd-old.list)
+          OVDLE_OLD=$(wc -l < ovdle-old.list)
+          OVP_OLD=$(wc -l < ovp-old.list)
+          OVPLE_OLD=$(wc -l < ovple-old.list)
 
           D_OVA=$(echo "${OVA} - ${OVA_OLD}" | bc)
-          echo "D_OVACN=$(echo "${OVACN} - ${OVACN_OLD}" | bc)" >> $GITHUB_ENV
-          echo "D_OVAL=$(echo "${OVAL} - ${OVAL_OLD}" | bc)" >> $GITHUB_ENV
-          echo "D_OVALE=$(echo "${OVALE} - ${OVALE_OLD}" | bc)" >> $GITHUB_ENV
-          echo "D_OVD=$(echo "${OVD} - ${OVD_OLD}" | bc)" >> $GITHUB_ENV
-          echo "D_OVDLE=$(echo "${OVDLE} - ${OVDLE_OLD}" | bc)" >> $GITHUB_ENV
-          echo "D_OVP=$(echo "${OVP} - ${OVP_OLD}" | bc)" >> $GITHUB_ENV
-          echo "D_OVPLE=$(echo "${OVPLE} - ${OVPLE_OLD}" | bc)" >> $GITHUB_ENV
+          D_OVACN=$(echo "${OVACN} - ${OVACN_OLD}" | bc)
+          D_OVAL=$(echo "${OVAL} - ${OVAL_OLD}" | bc)
+          D_OVALE=$(echo "${OVALE} - ${OVALE_OLD}" | bc)
+          D_OVD=$(echo "${OVD} - ${OVD_OLD}" | bc)
+          D_OVDLE=$(echo "${OVDLE} - ${OVDLE_OLD}" | bc)
+          D_OVP=$(echo "${OVP} - ${OVP_OLD}" | bc)
+          D_OVPLE=$(echo "${OVPLE} - ${OVPLE_OLD}" | bc)
 
-          echo "OVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVA${OVA}"
-          echo "OVA_OLDOVA_OLDOVA_OLDOVA_OLDOVA_OLDOVA_OLDOVA_OLDOVA_OLDOVA_OLD${OVA_OLD}"
-          echo "D_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVA${D_OVA}"
-
-          [[ ${D_OVA} -gt 0 ]] && echo "D_OVA=+${D_OVA}" >> $GITHUB_ENV
-          [[ ${D_OVACN} -gt 0 ]] && echo "D_OVACN=+${D_OVACN}" >> $GITHUB_ENV
-          [[ ${D_OVAL} -gt 0 ]] && echo "D_OVAL=+${D_OVAL}" >> $GITHUB_ENV
-          [[ ${D_OVALE} -gt 0 ]] && echo "D_OVALE=+${D_OVALE}" >> $GITHUB_ENV
-          [[ ${D_OVD} -gt 0 ]] && echo "D_OVD=+${D_OVD}" >> $GITHUB_ENV
-          [[ ${D_OVDLE} -gt 0 ]] && echo "D_OVDLE=+${D_OVDLE}" >> $GITHUB_ENV
-          [[ ${D_OVP} -gt 0 ]] && echo "D_OVP=+${D_OVP}" >> $GITHUB_ENV
-          [[ ${D_OVPLE} -gt 0 ]] && echo "D_OVPLE=+${D_OVPLE}" >> $GITHUB_ENV
+          [[ ${D_OVA} -gt 0 ]] && D_OVA=+${D_OVA}
+          [[ ${D_OVACN} -gt 0 ]] && D_OVACN=+${D_OVACN}
+          [[ ${D_OVAL} -gt 0 ]] && D_OVAL=+${D_OVAL}
+          [[ ${D_OVALE} -gt 0 ]] && D_OVALE=+${D_OVALE}
+          [[ ${D_OVD} -gt 0 ]] && D_OVD=+${D_OVD}
+          [[ ${D_OVDLE} -gt 0 ]] && D_OVDLE=+${D_OVDLE}
+          [[ ${D_OVP} -gt 0 ]] && D_OVP=+${D_OVP}
+          [[ ${D_OVPLE} -gt 0 ]] && D_OVPLE=+${D_OVPLE}
 
       - name: Build geosite.dat file
         run: |
@@ -741,16 +737,16 @@ jobs:
             
             
             === Count ===
-            `Adblock`: *${{ env.OVA }}* (${{ env.D_OVA }})
-            `Direct`: *${{ env.OVD }}* (${{ env.D_OVD }})
-            `Proxy`: *${{ env.OVP }}* (${{ env.D_OVP }})
+            `Adblock`: *${{ env.OVA }}* (${D_OVA})
+            `Direct`: *${{ env.OVD }}* (${D_OVD})
+            `Proxy`: *${{ env.OVP }}* (${D_OVP})
 
-            `Adblock-CN`: *${{ env.OVACN }}* (${{ env.D_OVACN }})
-            `Adblock-Lite`: *${{ env.OVAL }}* (${{ env.D_OVAL }})
+            `Adblock-CN`: *${{ env.OVACN }}* (${D_OVACN})
+            `Adblock-Lite`: *${{ env.OVAL }}* (${D_OVAL})
 
-            `Adblock-Lean`: *${{ env.OVALE }}* (${{ env.D_OVALE }})
-            `Direct-Lean`: *${{ env.OVDLE }}* (${{ env.D_OVDLE }})
-            `Proxy-Lean`: *${{ env.OVPLE }}* (${{ env.D_OVPLE }})
+            `Adblock-Lean`: *${{ env.OVALE }}* (${D_OVALE})
+            `Direct-Lean`: *${{ env.OVDLE }}* (${D_OVDLE})
+            `Proxy-Lean`: *${{ env.OVPLE }}* (${D_OVPLE})
             
             === Date ===
             ${{ env.FDATE }} GMT
