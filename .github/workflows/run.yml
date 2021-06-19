@@ -618,7 +618,7 @@ jobs:
           wget -O ovple-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillProxy-Lean.list
           wget -O ovp-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillProxy.list
           
-          echo "OVA_OLD=$(wc -l < ova-old.list)" >> $GITHUB_ENV
+          echo "OVA_OLD=$(wc -l < ova-old.list)"
           echo "OVACN_OLD=$(wc -l < ovacn-old.list)" >> $GITHUB_ENV
           echo "OVAL_OLD=$(wc -l < oval-old.list)" >> $GITHUB_ENV
           echo "OVALE_OLD=$(wc -l < ovale-old.list)" >> $GITHUB_ENV
@@ -627,7 +627,7 @@ jobs:
           echo "OVP_OLD=$(wc -l < ovp-old.list)" >> $GITHUB_ENV
           echo "OVPLE_OLD=$(wc -l < ovple-old.list)" >> $GITHUB_ENV
 
-          echo "D_OVA=$(echo "${OVA} - ${OVA_OLD}" | bc)" >> $GITHUB_ENV
+          echo "D_OVA=$(echo "${OVA} - ${OVA_OLD}" | bc)"
           echo "D_OVACN=$(echo "${OVACN} - ${OVACN_OLD}" | bc)" >> $GITHUB_ENV
           echo "D_OVAL=$(echo "${OVAL} - ${OVAL_OLD}" | bc)" >> $GITHUB_ENV
           echo "D_OVALE=$(echo "${OVALE} - ${OVALE_OLD}" | bc)" >> $GITHUB_ENV
@@ -639,7 +639,7 @@ jobs:
           echo "OVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVA${OVA}"
           echo "OVA_OLDOVA_OLDOVA_OLDOVA_OLDOVA_OLDOVA_OLDOVA_OLDOVA_OLDOVA_OLD${OVA_OLD}"
           echo "D_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVA${D_OVA}"
-          
+
           [[ ${D_OVA} -gt 0 ]] && echo "D_OVA=+${D_OVA}" >> $GITHUB_ENV
           [[ ${D_OVACN} -gt 0 ]] && echo "D_OVACN=+${D_OVACN}" >> $GITHUB_ENV
           [[ ${D_OVAL} -gt 0 ]] && echo "D_OVAL=+${D_OVAL}" >> $GITHUB_ENV
