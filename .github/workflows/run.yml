@@ -737,16 +737,16 @@ jobs:
             
             
             === Count ===
-            `Adblock`: *${{ env.OVA }}* (${D_OVA})
-            `Direct`: *${{ env.OVD }}* (${D_OVD})
-            `Proxy`: *${{ env.OVP }}* (${D_OVP})
+            `Adblock`: *${{ env.OVA }}* (${{D_OVA}})
+            `Direct`: *${{ env.OVD }}* (${{D_OVD}})
+            `Proxy`: *${{ env.OVP }}* (${{D_OVP}})
 
-            `Adblock-CN`: *${{ env.OVACN }}* (${D_OVACN})
-            `Adblock-Lite`: *${{ env.OVAL }}* (${D_OVAL})
+            `Adblock-CN`: *${{ env.OVACN }}* (${{D_OVACN}})
+            `Adblock-Lite`: *${{ env.OVAL }}* (${{D_OVAL}})
 
-            `Adblock-Lean`: *${{ env.OVALE }}* (${D_OVALE})
-            `Direct-Lean`: *${{ env.OVDLE }}* (${D_OVDLE})
-            `Proxy-Lean`: *${{ env.OVPLE }}* (${D_OVPLE})
+            `Adblock-Lean`: *${{ env.OVALE }}* (${{D_OVALE}})
+            `Direct-Lean`: *${{ env.OVDLE }}* (${{D_OVDLE}})
+            `Proxy-Lean`: *${{ env.OVPLE }}* (${{D_OVPLE}})
             
             === Date ===
             ${{ env.FDATE }} GMT
