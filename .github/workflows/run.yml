@@ -636,7 +636,10 @@ jobs:
           echo "D_OVP=$(echo "${OVP} - ${OVP_OLD}" | bc)" >> $GITHUB_ENV
           echo "D_OVPLE=$(echo "${OVPLE} - ${OVPLE_OLD}" | bc)" >> $GITHUB_ENV
 
-          echo "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa${D_OVA}"
+          echo "OVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVAOVA${OVA}"
+          echo "OVA_OLDOVA_OLDOVA_OLDOVA_OLDOVA_OLDOVA_OLDOVA_OLDOVA_OLDOVA_OLD${OVA_OLD}"
+          echo "D_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVAD_OVA${D_OVA}"
+          
           [[ ${D_OVA} -gt 0 ]] && echo "D_OVA=+${D_OVA}" >> $GITHUB_ENV
           [[ ${D_OVACN} -gt 0 ]] && echo "D_OVACN=+${D_OVACN}" >> $GITHUB_ENV
           [[ ${D_OVAL} -gt 0 ]] && echo "D_OVAL=+${D_OVAL}" >> $GITHUB_ENV
