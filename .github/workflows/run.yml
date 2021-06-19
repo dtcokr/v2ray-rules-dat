@@ -360,9 +360,9 @@ jobs:
           sort --ignore-case -u ./reject.txt > ./reject-sorted.txt
 
           chmod +x findRedundantDomain.py
-          ./findRedundantDomain.py ./direct.txt ./direct-redundant
-          ./findRedundantDomain.py ./proxy.txt ./proxy-redundant
-          ./findRedundantDomain.py ./reject.txt ./reject-redundant
+          ./findRedundantDomain.py ./direct-sorted.txt ./direct-redundant
+          ./findRedundantDomain.py ./proxy-sorted.txt ./proxy-redundant
+          ./findRedundantDomain.py ./reject-sorted.txt ./reject-redundant
 
           [ ! -f "direct-redundant" ] && touch direct-redundant
           [ ! -f "proxy-redundant" ] && touch proxy-redundant
@@ -608,7 +608,43 @@ jobs:
           diff ./reject-list-with-tag-old.txt ./reject-list-with-tag.txt | awk '/^>/{print}' >> CHANGELOG.md
           echo "### Remove:" >> CHANGELOG.md
           diff ./reject-list-with-tag-old.txt ./reject-list-with-tag.txt | awk '/^</{print}' >> CHANGELOG.md
+
+          wget -O ovacn-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillAdBlock-CN.list
+          wget -O ovale-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillAdBlock-Lean.list
+          wget -O oval-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillAdBlock-Lite.list
+          wget -O ova-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillAdBlock.list
+          wget -O ovdle-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillDirect-Lean.list
+          wget -O ovd-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillDirect.list
+          wget -O ovple-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillProxy-Lean.list
+          wget -O ovp-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillProxy.list
           
+          echo "OVA_OLD=$(wc -l < ova-old.list)" >> $GITHUB_ENV
+          echo "OVACN_OLD=$(wc -l < ovacn-old.list)" >> $GITHUB_ENV
+          echo "OVAL_OLD=$(wc -l < oval-old.list)" >> $GITHUB_ENV
+          echo "OVALE_OLD=$(wc -l < ovale-old.list)" >> $GITHUB_ENV
+          echo "OVD_OLD=$(wc -l < ovd-old.list)" >> $GITHUB_ENV
+          echo "OVDLE_OLD=$(wc -l < ovdle-old.list)" >> $GITHUB_ENV
+          echo "OVP_OLD=$(wc -l < ovp-old.list)" >> $GITHUB_ENV
+          echo "OVPLE_OLD=$(wc -l < ovple-old.list)" >> $GITHUB_ENV
+
+          echo "D_OVA=$(echo "${OVA} - ${OVA_OLD}" | bc)" >> $GITHUB_ENV
+          echo "D_OVACN=$(echo "${OVACN} - ${OVACN_OLD}" | bc)" >> $GITHUB_ENV
+          echo "D_OVAL=$(echo "${OVAL} - ${OVAL_OLD}" | bc)" >> $GITHUB_ENV
+          echo "D_OVALE=$(echo "${OVALE} - ${OVALE_OLD}" | bc)" >> $GITHUB_ENV
+          echo "D_OVD=$(echo "${OVD} - ${OVD_OLD}" | bc)" >> $GITHUB_ENV
+          echo "D_OVDLE=$(echo "${OVDLE} - ${OVDLE_OLD}" | bc)" >> $GITHUB_ENV
+          echo "D_OVP=$(echo "${OVP} - ${OVP_OLD}" | bc)" >> $GITHUB_ENV
+          echo "D_OVPLE=$(echo "${OVPLE} - ${OVPLE_OLD}" | bc)" >> $GITHUB_ENV
+
+          [ ${D_OVA} -gt 0 ] && echo "+${D_OVA}" >> $GITHUB_ENV
+          [ ${D_OVACN} -gt 0 ] && echo "+${D_OVACN}" >> $GITHUB_ENV
+          [ ${D_OVAL} -gt 0 ] && echo "+${D_OVAL}" >> $GITHUB_ENV
+          [ ${D_OVALE} -gt 0 ] && echo "+${D_OVALE}" >> $GITHUB_ENV
+          [ ${D_OVD} -gt 0 ] && echo "+${D_OVD}" >> $GITHUB_ENV
+          [ ${D_OVDLE} -gt 0 ] && echo "+${D_OVDLE}" >> $GITHUB_ENV
+          [ ${D_OVP} -gt 0 ] && echo "+${D_OVP}" >> $GITHUB_ENV
+          [ ${D_OVPLE} -gt 0 ] && echo "+${D_OVPLE}" >> $GITHUB_ENV
+
       - name: Build geosite.dat file
         run: |
           cd custom || exit 1
@@ -701,16 +737,16 @@ jobs:
             
             
             === Count ===
-            `Adblock`: *${{ env.OVA }}*
-            `Direct`: *${{ env.OVD }}*
-            `Proxy`: *${{ env.OVP }}*
+            `Adblock`: *${{ env.OVA }}* (${{ env.D_OVA }})
+            `Direct`: *${{ env.OVD }}* (${{ env.D_OVD }})
+            `Proxy`: *${{ env.OVP }}* (${{ env.D_OVP }})
 
-            `Adblock-CN`: *${{ env.OVACN }}*
-            `Adblock-Lite`: *${{ env.OVAL }}*
+            `Adblock-CN`: *${{ env.OVACN }}* (${{ env.D_OVACN }})
+            `Adblock-Lite`: *${{ env.OVAL }}* (${{ env.D_OVAL }})
 
-            `Adblock-Lean`: *${{ env.OVALE }}*
-            `Direct-Lean`: *${{ env.OVDLE }}*
-            `Proxy-Lean`: *${{ env.OVPLE }}*
+            `Adblock-Lean`: *${{ env.OVALE }}* (${{ env.D_OVALE }})
+            `Direct-Lean`: *${{ env.OVDLE }}* (${{ env.D_OVDLE }})
+            `Proxy-Lean`: *${{ env.OVPLE }}* (${{ env.D_OVPLE }})
             
             === Date ===
             ${{ env.FDATE }} GMT
