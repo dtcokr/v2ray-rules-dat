@@ -636,14 +636,14 @@ jobs:
           echo "D_OVP=$(echo "${OVP} - ${OVP_OLD}" | bc)" >> $GITHUB_ENV
           echo "D_OVPLE=$(echo "${OVPLE} - ${OVPLE_OLD}" | bc)" >> $GITHUB_ENV
 
-          [[ ${D_OVA} -gt 0 ]] && echo "D_OVA=+${D_OVA}" >> $GITHUB_ENV
-          [[ ${D_OVACN} -gt 0 ]] && echo "D_OVACN=+${D_OVACN}" >> $GITHUB_ENV
-          [[ ${D_OVAL} -gt 0 ]] && echo "D_OVAL=+${D_OVAL}" >> $GITHUB_ENV
-          [[ ${D_OVALE} -gt 0 ]] && echo "D_OVALE=+${D_OVALE}" >> $GITHUB_ENV
-          [[ ${D_OVD} -gt 0 ]] && echo "D_OVD=+${D_OVD}" >> $GITHUB_ENV
-          [[ ${D_OVDLE} -gt 0 ]] && echo "D_OVDLE=+${D_OVDLE}" >> $GITHUB_ENV
-          [[ ${D_OVP} -gt 0 ]] && echo "D_OVP=+${D_OVP}" >> $GITHUB_ENV
-          [[ ${D_OVPLE} -gt 0 ]] && echo "D_OVPLE=+${D_OVPLE}" >> $GITHUB_ENV
+          [[ ${env.D_OVA} -gt 0 ]] && echo "D_OVA=+${D_OVA}" >> $GITHUB_ENV
+          [[ ${env.D_OVACN} -gt 0 ]] && echo "D_OVACN=+${D_OVACN}" >> $GITHUB_ENV
+          [[ ${env.D_OVAL} -gt 0 ]] && echo "D_OVAL=+${D_OVAL}" >> $GITHUB_ENV
+          [[ ${env.D_OVALE} -gt 0 ]] && echo "D_OVALE=+${D_OVALE}" >> $GITHUB_ENV
+          [[ ${env.D_OVD} -gt 0 ]] && echo "D_OVD=+${D_OVD}" >> $GITHUB_ENV
+          [[ ${env.D_OVDLE} -gt 0 ]] && echo "D_OVDLE=+${D_OVDLE}" >> $GITHUB_ENV
+          [[ ${env.D_OVP} -gt 0 ]] && echo "D_OVP=+${D_OVP}" >> $GITHUB_ENV
+          [[ ${env.D_OVPLE} -gt 0 ]] && echo "D_OVPLE=+${D_OVPLE}" >> $GITHUB_ENV
 
       - name: Build geosite.dat file
         run: |
