@@ -514,6 +514,8 @@ jobs:
           [ ! -f "reject-upper-sorted-2-redundant" ] && touch reject-upper-sorted-2-redundant
           sort -fu reject-upper-sorted-2-redundant > reject-upper-sorted-2-redundant-sorted
           diff reject-upper-sorted-2-redundant-sorted reject-upper-sorted-2 | awk '/^>/{print $2}' > reject-pre-lean
+          diff ./reject-need-to-remove-sorted.txt ./reject-pre-lean  | awk '/^>/{print $2}' > reject-pre-lean-2
+          cat reject-pre-lean-2 > reject-pre-lean
 
           cat ./reject-list-sorted | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock.list
           cat ./reject-list-sorted | perl -ne '/\.cn$/ && print' | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", REJECT",$2);print}' > OverkillAdBlock-CN.list
