@@ -207,6 +207,7 @@
     jpush.cn
     easytomessage.com
     jpush.io
+    jiguang.cn
     ```
     
   https://www.icsi.berkeley.edu/pubs/privacy/TR-20-001.pdf
