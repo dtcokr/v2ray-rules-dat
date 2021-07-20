@@ -203,6 +203,12 @@
   
   - JiGuang Push / JPush / 极光推送
   
+    ```
+    jpush.cn
+    easytomessage.com
+    jpush.io
+    ```
+    
   https://www.icsi.berkeley.edu/pubs/privacy/TR-20-001.pdf
   
   - BLUESKYXN_AGHR
