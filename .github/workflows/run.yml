@@ -569,9 +569,9 @@ jobs:
           cat reject-pre-lean > reject.result
 
           cat ./reject-ip.txt >> OverkillAdBlock-Lite.list
-          diff reject-ip.txt reject-ip-always.txt | awk '/^>/{print $2}' >> OverkillAdBlock-Lite.list
+          diff reject-ip.txt reject-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillAdBlock-Lite.list
           cat ./reject-ip.txt >> OverkillAdBlock-Lean.list
-          diff reject-ip.txt reject-ip-always.txt | awk '/^>/{print $2}' >> OverkillAdBlock-Lean.list
+          diff reject-ip.txt reject-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillAdBlock-Lean.list
 
           echo "OVA=$(wc -l < OverkillAdBlock.list)" >> $GITHUB_ENV
           echo "OVACN=$(wc -l < OverkillAdBlock-CN.list)" >> $GITHUB_ENV
