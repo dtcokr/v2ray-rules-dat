@@ -486,6 +486,7 @@ jobs:
           ./find_upper.py ./direct.txt ./direct-list-pre-ov direct-upper
           sort -fu direct-upper > direct-upper-sorted
           cat direct.txt >> direct-upper-sorted
+          sed -i '/^$/d' direct-always.txt
           cat direct-always.txt >> direct-upper-sorted
           sort -fu direct-upper-sorted > direct-upper-sorted-2
           ./findRedundantDomain.py direct-upper-sorted-2 direct-upper-sorted-2-redundant
@@ -497,6 +498,7 @@ jobs:
           ./find_upper.py ./proxy.txt ./proxy-list-pre-ov proxy-upper
           sort -fu proxy-upper > proxy-upper-sorted
           cat proxy.txt >> proxy-upper-sorted
+          sed -i '/^$/d' proxy-always.txt
           cat proxy-always.txt >> proxy-upper-sorted
           sort -fu proxy-upper-sorted > proxy-upper-sorted-2
           ./findRedundantDomain.py proxy-upper-sorted-2 proxy-upper-sorted-2-redundant
@@ -511,6 +513,7 @@ jobs:
           ./cn_reject.py reject-list-sorted direct-pre-lean ovalean-d
           cat ovalean-d >> reject-upper-sorted
           cat reject.txt >> reject-upper-sorted
+          sed -i '/^$/d' reject-always.txt
           cat reject-always.txt >> reject-upper-sorted
           sort -fu reject-upper-sorted > reject-upper-sorted-2
           ./findRedundantDomain.py reject-upper-sorted-2 reject-upper-sorted-2-redundant
@@ -541,13 +544,13 @@ jobs:
           cat ./reject-ip-sorted.txt > reject-ip.txt
 
           cat ./proxy-ip.txt >> OverkillProxy.list
-          diff proxy-ip.txt proxy-ip-always.txt | awk '/^>/{print $2}' >> OverkillProxy.list
+          diff proxy-ip.txt proxy-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillProxy.list
           cat ./proxy-ip.txt >> OverkillProxy-Lean.list
-          diff proxy-ip.txt proxy-ip-always.txt | awk '/^>/{print $2}' >> OverkillProxy-Lean.list
+          diff proxy-ip.txt proxy-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillProxy-Lean.list
           cat ./direct-ip.txt >> OverkillDirect.list
-          diff direct-ip.txt direct-ip-always.txt | awk '/^>/{print $2}' >> OverkillDirect.list
+          diff direct-ip.txt direct-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillDirect.list
           cat ./direct-ip.txt >> OverkillDirect-Lean.list
-          diff direct-ip.txt direct-ip-always.txt | awk '/^>/{print $2}' >> OverkillDirect-Lean.list
+          diff direct-ip.txt direct-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillDirect-Lean.list
 
           chmod +x cn_reject.py
           ./cn_reject.py reject-list-sorted direct-list-ov-sorted.txt ovlite-d
