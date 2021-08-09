@@ -584,9 +584,9 @@ jobs:
 
       - name: Create change log
         run: |
-          wget -O direct-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/direct-list.txt
-          wget -O proxy-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/proxy-list.txt
-          wget -O reject-list-with-tag-old.txt.xz https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/reject-list-with-tag.txt.xz
+          wget -O direct-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/download/202108072217/direct-list.txt
+          wget -O proxy-list-pre.txt https://github.com/dtcokr/v2ray-rules-dat/releases/download/202108072217/proxy-list.txt
+          wget -O reject-list-with-tag-old.txt.xz https://github.com/dtcokr/v2ray-rules-dat/releases/download/202108072217/reject-list-with-tag.txt.xz
           
           xz -d reject-list-with-tag-old.txt.xz
           
@@ -623,14 +623,14 @@ jobs:
           echo "### Remove:" >> CHANGELOG.md
           diff ./reject-list-with-tag-old.txt ./reject-list-with-tag.txt | awk '/^</{print}' >> CHANGELOG.md
 
-          wget -O ovacn-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillAdBlock-CN.list
-          wget -O ovale-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillAdBlock-Lean.list
-          wget -O oval-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillAdBlock-Lite.list
-          wget -O ova-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillAdBlock.list
-          wget -O ovdle-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillDirect-Lean.list
-          wget -O ovd-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillDirect.list
-          wget -O ovple-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillProxy-Lean.list
-          wget -O ovp-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/latest/download/OverkillProxy.list
+          wget -O ovacn-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/download/202108072217/OverkillAdBlock-CN.list
+          wget -O ovale-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/download/202108072217/OverkillAdBlock-Lean.list
+          wget -O oval-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/download/202108072217/OverkillAdBlock-Lite.list
+          wget -O ova-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/download/202108072217/OverkillAdBlock.list
+          wget -O ovdle-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/download/202108072217/OverkillDirect-Lean.list
+          wget -O ovd-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/download/202108072217/OverkillDirect.list
+          wget -O ovple-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/download/202108072217/OverkillProxy-Lean.list
+          wget -O ovp-old.list https://github.com/dtcokr/v2ray-rules-dat/releases/download/202108072217/OverkillProxy.list
           
           OVA_OLD=$(wc -l < ova-old.list)
           OVACN_OLD=$(wc -l < ovacn-old.list)
