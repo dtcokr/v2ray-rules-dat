@@ -1,0 +1,8 @@
+google.com
+icloud.com
+googlevideo.com
+youtube.com
+googleapis.com
+spotify.com
+ampproject.org
+push.apple.com

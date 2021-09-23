@@ -1,0 +1,10 @@
+ip-cidr, 102.230.236.0/24, reject
+ip-cidr, 117.121.49.0/24, reject
+ip-cidr, 121.46.20.0/24, reject
+ip-cidr, 121.46.25.0/24, reject
+ip-cidr, 121.46.30.0/24, reject
+ip-cidr, 124.202.138.0/24, reject
+ip-cidr, 175.25.50.0/24, reject
+ip-cidr, 183.232.25.0/24, reject
+ip-cidr, 43.247.88.0/24, reject
+ip-cidr, 49.4.114.0/24, reject
