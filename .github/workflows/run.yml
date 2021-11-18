@@ -63,7 +63,7 @@ jobs:
           echo "CUSTOM_FABRICEPRIGENT_CRYPTOJACKING=https://v.firebog.net/hosts/Prigent-Crypto.txt" >> $GITHUB_ENV
           echo "CUSTOM_DISCONNECT_MALVERTISING=https://s3.amazonaws.com/lists.disconnect.me/simple_malvertising.txt" >> $GITHUB_ENV
           echo "CUSTOM_MANDIANT_APT1_REPORT=https://bitbucket.org/ethanr/dns-blacklists/raw/8575c9f96e5b4a1308f2f12394abd86d0927a4a0/bad_lists/Mandiant_APT1_Report_Appendix_D.txt" >> $GITHUB_ENV
-          echo "CUSTOM_PHISHINGARMY_EXTENDED=https://phishing.army/download/phishing_army_blocklist_extended.txt" >> $GITHUB_ENV
+          echo "CUSTOM_PHISHINGARMY=https://phishing.army/download/phishing_army_blocklist.txt" >> $GITHUB_ENV
           echo "CUSTOM_QUIDSUP_MALICIOUS=https://gitlab.com/quidsup/notrack-blocklists/raw/master/notrack-malware.txt" >> $GITHUB_ENV
           echo "CUSTOM_SHALLA_MALICIOUS=https://v.firebog.net/hosts/Shalla-mal.txt" >> $GITHUB_ENV
           echo "CUSTOM_SPAM404=https://raw.githubusercontent.com/Spam404/lists/master/main-blacklist.txt" >> $GITHUB_ENV
@@ -240,8 +240,8 @@ jobs:
           echo "# CUSTOM_MANDIANT_APT1_REPORT" >> temp-reject.txt
           curl -sSL ${CUSTOM_MANDIANT_APT1_REPORT} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
-          echo "# CUSTOM_PHISHINGARMY_EXTENDED" >> temp-reject.txt
-          curl -sSL ${CUSTOM_PHISHINGARMY_EXTENDED} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_PHISHINGARMY" >> temp-reject.txt
+          curl -sSL ${CUSTOM_PHISHINGARMY} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
           echo "# CUSTOM_QUIDSUP_MALICIOUS" >> temp-reject.txt
           curl -sSL ${CUSTOM_QUIDSUP_MALICIOUS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
