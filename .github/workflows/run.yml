@@ -78,7 +78,6 @@ jobs:
           echo "CUSTOM_EHPO1_LIBY=https://raw.githubusercontent.com/eHpo1/Rules/master/QuantumultX/Filter/Liby.txt" >> $GITHUB_ENV
           echo "CUSTOM_GEQ1AN_ADBLOCK=https://raw.githubusercontent.com/GeQ1an/Rules/master/QuantumultX/Filter/AdBlock.list" >> $GITHUB_ENV
           echo "CUSTOM_NOBYDA_ADBLOCK=https://raw.githubusercontent.com/NobyDa/ND-AD/master/QuantumultX/AD_Block.txt" >> $GITHUB_ENV
-          echo "CUSTOM_NOBYDA_ADBLOCK_PLUS=https://raw.githubusercontent.com/NobyDa/ND-AD/master/QuantumultX/AD_Block_Plus.txt" >> $GITHUB_ENV
           echo "CUSTOM_URLHAUS_MALICIOUS_FULL=https://curben.gitlab.io/malware-filter/urlhaus-filter-hosts.txt" >> $GITHUB_ENV
           echo "CUSTOM_BLUESKYXN_AGHR=https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/all.txt" >> $GITHUB_ENV
           echo "CUSTOM_STEVENBLACK_FG=https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts" >> $GITHUB_ENV
@@ -284,9 +283,6 @@ jobs:
 
           echo "# CUSTOM_NOBYDA_ADBLOCK" >> temp-reject.txt
           curl -sSL ${CUSTOM_NOBYDA_ADBLOCK} | perl -ne '/^DOMAIN-SUFFIX\,([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\,REJECT$/ && print "$1\n"' >> temp-reject.txt
-
-          echo "# CUSTOM_NOBYDA_ADBLOCK_PLUS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_NOBYDA_ADBLOCK_PLUS} | perl -ne '/^DOMAIN\,([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\,REJECT$/ && print "$1\n"' >> temp-reject.txt
           
           echo "# CUSTOM_URLHAUS_MALICIOUS_FULL" >> temp-reject.txt
           curl -sSL ${CUSTOM_URLHAUS_MALICIOUS_FULL} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
