@@ -534,6 +534,7 @@ jobs:
           cat ./google-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillGoogleCN-DIRECT.list
           cat ./direct-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect-Lean.list
           cat ./proxy-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy-Lean.list
+          cat ./reject-list-sorted | awk '{gsub(/^/,"||",$1);print}' | awk '{gsub(/$/,"^",$2);print}' > OverkillGuardian.list
 
           cat proxy-pre-lean > proxy.result
           cat direct-pre-lean > direct.result
@@ -691,6 +692,7 @@ jobs:
           install -p {OverkillAdBlock,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list ./publish/
           install -p OverkillAdBlock-{CN,Lite}.list ./publish/
           install -p Overkill{AdBlock,Direct,Proxy}-Lean.list ./publish/
+          install -p OverkillGuardian.list ./publish/
           
           install -p reject-list-with-tag.txt.xz ./publish/
           
