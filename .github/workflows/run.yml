@@ -706,6 +706,7 @@ jobs:
           install -p {direct,proxy,reject}-ip.txt ./hid/
           install -p {direct,proxy,reject}-always.txt ./hid/
           install -p {direct,proxy,reject}-ip-always.txt ./hid/
+          install -p 2lettertop.domain ./hid/
 
           cd ./publish || exit 1
           zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list OverkillAdBlock-{CN,Lite}.list Overkill{AdBlock,Direct,Proxy}-Lean.list
