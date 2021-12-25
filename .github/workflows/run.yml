@@ -530,7 +530,7 @@ jobs:
           cat ./google-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillGoogleCN-DIRECT.list
           cat ./direct-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect-Lean.list
           cat ./proxy-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy-Lean.list
-          cat ./reject-list-sorted | awk '{gsub(/^/,"||",$1);print}' | awk '{gsub(/$/,"^",$1);print}' > OverkillGuardian.list
+          diff ./cdn-domain.txt ./reject-list-sorted | awk '/^>/{print $2}' | awk '{gsub(/^/,"||",$1);print}' | awk '{gsub(/$/,"^",$1);print}' > OverkillGuardian.list
 
           cat proxy-pre-lean > proxy.result
           cat direct-pre-lean > direct.result
@@ -707,6 +707,7 @@ jobs:
           install -p {direct,proxy,reject}-always.txt ./hid/
           install -p {direct,proxy,reject}-ip-always.txt ./hid/
           install -p 2lettertop.domain ./hid/
+          install -p cdn-domain.txt ./hid/
 
           cd ./publish || exit 1
           zip rules.zip {proxy,direct,reject}-list.txt geoip.dat geosite.dat {OverkillAdBlock,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list OverkillAdBlock-{CN,Lite}.list Overkill{AdBlock,Direct,Proxy}-Lean.list
