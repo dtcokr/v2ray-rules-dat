@@ -527,6 +527,7 @@ jobs:
           cat ./direct-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect.list
           cat ./proxy-list-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy.list
           cat ./apple-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillAppleCN-DIRECT.list
+          cat ./apple-cn-pre-ov | awk '{gsub(/^/,"DOMAIN-SUFFIX, ",$1);print}' > OverkillAppleCN-DIRECT-RuleSet.list
           cat ./google-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillGoogleCN-DIRECT.list
           cat ./direct-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect-Lean.list
           cat ./direct-pre-lean | awk '{gsub(/^/,"DOMAIN-SUFFIX, ",$1);print}' > OverkillDirect-Lean-RuleSet.list
@@ -699,6 +700,7 @@ jobs:
           install -p {apple-cn,google-cn,gfw,greatfire,win-spy,win-update,win-extra}.txt ./publish/
           
           install -p {OverkillAdBlock,OverkillDirect,OverkillProxy,OverkillGoogleCN-DIRECT,OverkillAppleCN-DIRECT}.list ./publish/
+          install -p OverkillAppleCN-DIRECT-RuleSet.list ./publish/
           install -p OverkillAdBlock-{CN,Lite}.list ./publish/
           install -p Overkill{AdBlock,Direct,Proxy}-Lean.list ./publish/
           install -p Overkill{AdBlock,Direct,Proxy}-Lean-RuleSet.list ./publish/
