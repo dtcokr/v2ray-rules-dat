@@ -3,7 +3,7 @@ name: Build V2Ray rules dat files
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 22 * * *"
+    - cron: "0 21 * * *"
 
 jobs:
   build:
@@ -778,7 +778,6 @@ jobs:
           token: ${{ secrets.BOT_TOKEN }}
           message: |
             *#V2RayRulesDatUpdated*
-            
             
             === Count ===
             `Adblock`: *${{ env.OVA }}* (${{ env.D_OVA }})
