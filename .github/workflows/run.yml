@@ -94,6 +94,7 @@ jobs:
         with:
           repository: dtcokr/huh
           token: ${{ secrets.GH_PAT }}
+          path: huh
 
       - name: Checkout Loyalsoldier/domain-list-custom
         uses: actions/checkout@v3
@@ -313,12 +314,12 @@ jobs:
           sed -i '/^$/d' direct-ip.txt
           sed -i '/^$/d' reject-ip.txt
           cat proxy.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-proxy.txt
-          cat proxy-always.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-proxy.txt
+          cat ./huh/proxy-always.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-proxy.txt
           cat direct.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-direct.txt
-          cat direct-always.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-direct.txt
+          cat ./huh/direct-always.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-direct.txt
           echo "# CUSTOM_FROM_HIDDEN" >> temp-reject.txt
           cat reject.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
-          cat reject-always.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
+          cat ./huh/reject-always.txt | perl -ne '/^(?!#)([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
           
       - name: Sort and generate non-redundant lists
         run: |
@@ -336,13 +337,13 @@ jobs:
       - name: Prepare for "reject-need-to-remove"
         run: |
           chmod +x ./domain_generalization.py
-          ./domain_generalization.py reject-need-to-remove.txt reject-list-without-redundant reject-need-to-remove-generalization
+          ./domain_generalization.py ./huh/reject-need-to-remove.txt reject-list-without-redundant reject-need-to-remove-generalization
           cat reject-need-to-remove-generalization >> reject-need-to-remove.txt
 
       - name: Remove domains from "need-to-remove" lists in "hidden" branch and sort
         run: |
-          sort --ignore-case -u ./direct-need-to-remove.txt > ./direct-need-to-remove-sorted.txt
-          sort --ignore-case -u ./proxy-need-to-remove.txt > ./proxy-need-to-remove-sorted.txt
+          sort --ignore-case -u ./huh/direct-need-to-remove.txt > ./direct-need-to-remove-sorted.txt
+          sort --ignore-case -u ./huh/proxy-need-to-remove.txt > ./proxy-need-to-remove-sorted.txt
           sort --ignore-case -u ./reject-need-to-remove.txt > ./reject-need-to-remove-sorted.txt
           
           sort --ignore-case -u ./direct.txt > ./direct-sorted.txt
@@ -476,8 +477,8 @@ jobs:
           ./find_upper.py ./direct.txt ./direct-list-pre-ov direct-upper
           sort -fu direct-upper > direct-upper-sorted
           cat direct.txt >> direct-upper-sorted
-          sed -i '/^$/d' direct-always.txt
-          cat direct-always.txt >> direct-upper-sorted
+          sed -i '/^$/d' ./huh/direct-always.txt
+          cat ./huh/direct-always.txt >> direct-upper-sorted
           sort -fu direct-upper-sorted > direct-upper-sorted-2
           ./findRedundantDomain.py direct-upper-sorted-2 direct-upper-sorted-2-redundant
           [ ! -f "direct-upper-sorted-2-redundant" ] && touch direct-upper-sorted-2-redundant
@@ -488,8 +489,8 @@ jobs:
           ./find_upper.py ./proxy.txt ./proxy-list-pre-ov proxy-upper
           sort -fu proxy-upper > proxy-upper-sorted
           cat proxy.txt >> proxy-upper-sorted
-          sed -i '/^$/d' proxy-always.txt
-          cat proxy-always.txt >> proxy-upper-sorted
+          sed -i '/^$/d' ./huh/proxy-always.txt
+          cat ./huh/proxy-always.txt >> proxy-upper-sorted
           sort -fu proxy-upper-sorted > proxy-upper-sorted-2
           ./findRedundantDomain.py proxy-upper-sorted-2 proxy-upper-sorted-2-redundant
           [ ! -f "proxy-upper-sorted-2-redundant" ] && touch proxy-upper-sorted-2-redundant
@@ -503,8 +504,8 @@ jobs:
           ./cn_reject.py reject-list-sorted direct-pre-lean ovalean-d
           cat ovalean-d >> reject-upper-sorted
           cat reject.txt >> reject-upper-sorted
-          sed -i '/^$/d' reject-always.txt
-          cat reject-always.txt >> reject-upper-sorted
+          sed -i '/^$/d' ./huh/reject-always.txt
+          cat ./huh/reject-always.txt >> reject-upper-sorted
           sort -fu reject-upper-sorted > reject-upper-sorted-2
           ./findRedundantDomain.py reject-upper-sorted-2 reject-upper-sorted-2-redundant
           [ ! -f "reject-upper-sorted-2-redundant" ] && touch reject-upper-sorted-2-redundant
@@ -524,7 +525,7 @@ jobs:
           cat ./direct-pre-lean | awk '{gsub(/^/,"DOMAIN-SUFFIX, ",$1);print}' > OverkillDirect-Lean-RuleSet.list
           cat ./proxy-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy-Lean.list
           cat ./proxy-pre-lean | awk '{gsub(/^/,"DOMAIN-SUFFIX, ",$1);print}' > OverkillProxy-Lean-RuleSet.list
-          diff cdn-domain.txt ./reject-list-sorted | awk '/^>/{print $2}' | awk '{gsub(/^/,"||",$1);print}' | awk '{gsub(/$/,"^",$1);print}' > OverkillGuardian.list
+          diff ./huh/cdn-domain.txt ./reject-list-sorted | awk '/^>/{print $2}' | awk '{gsub(/^/,"||",$1);print}' | awk '{gsub(/$/,"^",$1);print}' > OverkillGuardian.list
 
           cat proxy-pre-lean > proxy.result
           cat direct-pre-lean > direct.result
@@ -538,20 +539,20 @@ jobs:
           cat ./reject-ip-sorted.txt > reject-ip.txt
 
           cat ./proxy-ip.txt >> OverkillProxy.list
-          diff proxy-ip.txt proxy-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillProxy.list
+          diff proxy-ip.txt ./huh/proxy-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillProxy.list
           
           cat ./proxy-ip.txt >> OverkillProxy-Lean.list
           cat ./proxy-ip.txt | awk '{gsub(/proxy/,"no-resolve",$3);print}' >> OverkillProxy-Lean-RuleSet.list
-          diff proxy-ip.txt proxy-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillProxy-Lean.list
-          diff proxy-ip.txt proxy-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' | awk '{gsub(/proxy/,"no-resolve",$3);print}' >> OverkillProxy-Lean-RuleSet.list
+          diff proxy-ip.txt ./huh/proxy-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillProxy-Lean.list
+          diff proxy-ip.txt ./huh/proxy-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' | awk '{gsub(/proxy/,"no-resolve",$3);print}' >> OverkillProxy-Lean-RuleSet.list
           
           cat ./direct-ip.txt >> OverkillDirect.list
-          diff direct-ip.txt direct-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillDirect.list
+          diff direct-ip.txt ./huh/direct-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillDirect.list
           
           cat ./direct-ip.txt >> OverkillDirect-Lean.list
           cat ./direct-ip.txt | awk '{gsub(/direct/,"no-resolve",$3);print}' >> OverkillDirect-Lean-RuleSet.list
-          diff direct-ip.txt direct-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillDirect-Lean.list
-          diff direct-ip.txt direct-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' | awk '{gsub(/direct/,"no-resolve",$3);print}' >> OverkillDirect-Lean-RuleSet.list
+          diff direct-ip.txt ./huh/direct-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillDirect-Lean.list
+          diff direct-ip.txt ./huh/direct-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' | awk '{gsub(/direct/,"no-resolve",$3);print}' >> OverkillDirect-Lean-RuleSet.list
 
 
           chmod +x cn_reject.py
@@ -572,11 +573,11 @@ jobs:
           cat reject-pre-lean > reject.result
 
           cat ./reject-ip.txt >> OverkillAdBlock-Lite.list
-          diff reject-ip.txt reject-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillAdBlock-Lite.list
+          diff reject-ip.txt ./huh/reject-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillAdBlock-Lite.list
           cat ./reject-ip.txt >> OverkillAdBlock-Lean.list
           cat ./reject-ip.txt | awk '{gsub(/reject/,"no-resolve",$3);print}' >> OverkillAdBlock-Lean-RuleSet.list
-          diff reject-ip.txt reject-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillAdBlock-Lean.list
-          diff reject-ip.txt reject-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' | awk '{gsub(/reject/,"no-resolve",$3);print}' >> OverkillAdBlock-Lean-RuleSet.list
+          diff reject-ip.txt ./huh/reject-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' >> OverkillAdBlock-Lean.list
+          diff reject-ip.txt ./huh/reject-ip-always.txt | awk '/^>/{print $2" "$3" "$4}' | awk '{gsub(/reject/,"no-resolve",$3);print}' >> OverkillAdBlock-Lean-RuleSet.list
 
           echo "OVA=$(wc -l < OverkillAdBlock.list)" >> $GITHUB_ENV
           echo "OVACN=$(wc -l < OverkillAdBlock-CN.list)" >> $GITHUB_ENV
