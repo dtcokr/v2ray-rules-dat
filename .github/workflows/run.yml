@@ -702,18 +702,14 @@ jobs:
           
           install -p CHANGELOG.md.xz ./publish/
           
-          install -Dp ./reject-need-to-remove.txt ./hid/reject-need-to-remove.txt
-          install -p {direct,proxy}-need-to-remove.txt ./hid/
-          install -p {direct,proxy,reject}.txt ./hid/
+          install -Dp direct.txt ./hid/direct.txt
+          install -p {proxy,reject}.txt ./hid/
           install -p adlist_tagging.py ./hid/
           install -p domain_generalization.py ./hid/
           install -p cn_reject.py ./hid/
           install -p findRedundantDomain.py ./hid/
           install -p find_upper.py ./hid/
-          install -p HISTORY.md ./hid/
           install -p {direct,proxy,reject}-ip.txt ./hid/
-          install -p {direct,proxy,reject}-always.txt ./hid/
-          install -p {direct,proxy,reject}-ip-always.txt ./hid/
           install -p 2lettertop.domain ./hid/
           install -p cdn-domain.txt ./hid/
 
