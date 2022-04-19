@@ -92,7 +92,7 @@ jobs:
       - name: Checkout huh
         uses: actions/checkout@v3
         with:
-          repository: dtcokr/huh
+          repository: ${{ secrets.HUH_REPO }}
           token: ${{ secrets.GH_PAT }}
           path: huh
 
