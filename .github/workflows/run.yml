@@ -521,6 +521,15 @@ jobs:
           cat ./apple-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillAppleCN-DIRECT.list
           cat ./apple-cn-pre-ov | awk '{gsub(/^/,"DOMAIN-SUFFIX, ",$1);print}' > OverkillAppleCN-DIRECT-RuleSet.list
           cat ./google-cn-pre-ov | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillGoogleCN-DIRECT.list
+          
+          diff ./proxy-pre-lean ./direct-pre-lean | awk '/^>/{print $2}' > ./remove-proxy-from-direct
+          sort -fu ./remove-proxy-from-direct > ./remove-proxy-from-direct-sorted
+          cat ./remove-proxy-from-direct-sorted > ./remove-proxy-from-direct
+
+          diff ./direct-need-to-remove.txt ./remove-proxy-from-direct | awk '/^>/{print $2}' > ./remove-need-from-direct
+          sort -fu ./remove-need-from-direct > ./remove-need-from-direct-sorted
+          cat ./remove-need-from-direct-sorted > ./direct-pre-lean
+          
           cat ./direct-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", DIRECT",$2);print}' > OverkillDirect-Lean.list
           cat ./direct-pre-lean | awk '{gsub(/^/,"DOMAIN-SUFFIX, ",$1);print}' > OverkillDirect-Lean-RuleSet.list
           cat ./proxy-pre-lean | awk '{gsub(/^/,"HOST-SUFFIX, ",$1);print}' | awk '{gsub(/$/,", PROXY",$2);print}' > OverkillProxy-Lean.list
