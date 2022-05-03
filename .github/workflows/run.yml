@@ -763,9 +763,8 @@ jobs:
 
       - name: Trigger auto update actions
         run: |
-          curl -XPOST -u "${{secrets.PAT_USERNAM}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" ${{secrets.PAT_URL}} --data '{"event_type": "Chain Reaction"}'
+          curl -XPOST -u "${{secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" ${{secrets.PAT_URL}} --data '{"event_type": "Chain Reaction"}'
           echo "FDATE=$(date +%Y-%m-%d@%H:%M)" >> $GITHUB_ENV
-        continue-on-error: true
 
       - name: Call Telegram
         uses: appleboy/telegram-action@master
