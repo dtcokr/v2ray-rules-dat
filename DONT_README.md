@@ -1,5 +1,3 @@
-# 简介
-
 ### Custom
 
 - DEVELOPERDAN_ADS_TRACKING
