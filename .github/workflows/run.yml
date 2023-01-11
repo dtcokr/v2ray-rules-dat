@@ -2,6 +2,7 @@ name: Build V2Ray rules dat files
 
 on:
   workflow_dispatch:
+  repository_dispatch:
   schedule:
     - cron: "0 21 * * *"
   push:
@@ -765,6 +766,7 @@ jobs:
           git push -f -u origin release
 
       - name: Trigger auto update actions
+        continue-on-error: true
         run: |
           HR=$(date +%H)
           [ $HR -eq 21 ] && \
