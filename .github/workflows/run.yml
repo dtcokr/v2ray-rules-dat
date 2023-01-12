@@ -764,15 +764,6 @@ jobs:
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f -u origin release
 
-      - name: Trigger auto update actions
-        continue-on-error: true
-        run: |
-          HR=$(date +%H:%M)
-          if [[ "$HR" > "21:00" ]] && [[ "$HR" < "21:20" ]];then
-          curl -XPOST -u "${{secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" ${{secrets.PAT_URL}} --data '{"event_type": "Chain Reaction"}'
-          fi
-          echo "FDATE=$(date +%Y-%m-%d@%H:%M)" >> $GITHUB_ENV
-
       - name: Call Telegram
         uses: appleboy/telegram-action@master
         with:
