@@ -786,5 +786,5 @@ jobs:
             `Proxy-Lean`: *${{ env.OVPLE }}* (${{ env.D_OVPLE }})
             
             === Date ===
-            ${{ env.FDATE }} GMT
+            ${{ env.FDATE }} UTC
           format: markdown
