@@ -763,6 +763,7 @@ jobs:
           git commit -m "${{ env.RELEASE_NAME }}"
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f -u origin release
+          echo "FDATE=$(date +%Y-%m-%d@%H:%M)" >> $GITHUB_ENV
 
       - name: Call Telegram
         uses: appleboy/telegram-action@master
