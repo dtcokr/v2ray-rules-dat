@@ -771,7 +771,7 @@ jobs:
           to: ${{ secrets.CHAT_ID }}
           token: ${{ secrets.BOT_TOKEN }}
           message: |
-            *#V2RayRulesDatUpdated*
+            #V2RayRulesDatUpdated #GitHub
             
             === Count ===
             `Adblock`: *${{ env.OVA }}* (${{ env.D_OVA }})
