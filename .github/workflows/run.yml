@@ -786,3 +786,4 @@ jobs:
             === Date ===
             ${{ env.FDATE }} UTC
           format: markdown
+          disable_notification: true
