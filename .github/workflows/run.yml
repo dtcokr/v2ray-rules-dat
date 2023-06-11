@@ -639,6 +639,8 @@ jobs:
           echo "### Remove:" >> CHANGELOG.md
           diff ./reject-list-with-tag-old.txt ./reject-list-with-tag.txt | awk '/^</{print}' >> CHANGELOG.md
 
+          cp CHANGELOG.md CHANGELOG.txt
+
           wget -O ovacn-old.list https://raw.githubusercontent.com/dtcokr/v2ray-rules-dat/release/OverkillAdBlock-CN.list
           wget -O ovale-old.list https://raw.githubusercontent.com/dtcokr/v2ray-rules-dat/release/OverkillAdBlock-Lean.list
           wget -O oval-old.list https://raw.githubusercontent.com/dtcokr/v2ray-rules-dat/release/OverkillAdBlock-Lite.list
@@ -710,7 +712,7 @@ jobs:
           
           install -p reject-list-with-tag.txt.xz ./publish/
           
-          install -p CHANGELOG.md.xz ./publish/
+          install -p CHANGELOG.md.xz CHANGELOG.txt ./publish/
           
           install -Dp direct.txt ./hid/direct.txt
           install -p {proxy,reject}.txt ./hid/
