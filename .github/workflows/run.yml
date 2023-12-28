@@ -162,44 +162,44 @@ jobs:
 
       - name: Get and add CUSTOM domains into temp-reject.txt file
         run: |
-          echo "# CUSTOM_DEVELOPERDAN_ADS_TRACKING" >> temp-reject.txt
-          curl -sSL ${CUSTOM_DEVELOPERDAN_ADS_TRACKING} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_DEVELOPERDAN_ADS_TRACKING" >> BLACKHOLE
+          curl -sSL ${CUSTOM_DEVELOPERDAN_ADS_TRACKING} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_POLISHFILTERSTEAM_KADHOSTS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_POLISHFILTERSTEAM_KADHOSTS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_POLISHFILTERSTEAM_KADHOSTS" >> BLACKHOLE
+          curl -sSL ${CUSTOM_POLISHFILTERSTEAM_KADHOSTS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_VELESILA_YHOSTS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_VELESILA_YHOSTS} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_VELESILA_YHOSTS" >> BLACKHOLE
+          curl -sSL ${CUSTOM_VELESILA_YHOSTS} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_MATOMO_REFERRER_SPAM" >> temp-reject.txt
-          curl -sSL ${CUSTOM_MATOMO_REFERRER_SPAM} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_MATOMO_REFERRER_SPAM" >> BLACKHOLE
+          curl -sSL ${CUSTOM_MATOMO_REFERRER_SPAM} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_WINHELP2002" >> temp-reject.txt
-          curl -sSL ${CUSTOM_WINHELP2002} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_WINHELP2002" >> BLACKHOLE
+          curl -sSL ${CUSTOM_WINHELP2002} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_NEOFELHZ_NEOHOSTS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_NEOFELHZ_NEOHOSTS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_NEOFELHZ_NEOHOSTS" >> BLACKHOLE
+          curl -sSL ${CUSTOM_NEOFELHZ_NEOHOSTS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_ROONEYMCNIBNUG_SNAFU" >> temp-reject.txt
-          curl -sSL ${CUSTOM_ROONEYMCNIBNUG_SNAFU} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_ROONEYMCNIBNUG_SNAFU" >> BLACKHOLE
+          curl -sSL ${CUSTOM_ROONEYMCNIBNUG_SNAFU} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_PAULGB_BARBBLOCK" >> temp-reject.txt
-          curl -sSL ${CUSTOM_PAULGB_BARBBLOCK} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_PAULGB_BARBBLOCK" >> BLACKHOLE
+          curl -sSL ${CUSTOM_PAULGB_BARBBLOCK} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
           echo "# CUSTOM_ADAWAY" >> temp-reject.txt
           curl -sSL ${CUSTOM_ADAWAY} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
-          echo "# CUSTOM_LANIKSJ_ADMIRAL" >> temp-reject.txt
-          curl -sSL ${CUSTOM_LANIKSJ_ADMIRAL} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_LANIKSJ_ADMIRAL" >> BLACKHOLE
+          curl -sSL ${CUSTOM_LANIKSJ_ADMIRAL} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_ANUDEEPND_BLACKLIST" >> temp-reject.txt
-          curl -sSL ${CUSTOM_ANUDEEPND_BLACKLIST} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_ANUDEEPND_BLACKLIST" >> BLACKHOLE
+          curl -sSL ${CUSTOM_ANUDEEPND_BLACKLIST} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_DISCONNECT_ADS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_DISCONNECT_ADS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_DISCONNECT_ADS" >> BLACKHOLE
+          curl -sSL ${CUSTOM_DISCONNECT_ADS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_HOSTSVN" >> temp-reject.txt
-          curl -sSL ${CUSTOM_HOSTSVN} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_HOSTSVN" >> BLACKHOLE
+          curl -sSL ${CUSTOM_HOSTSVN} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
           echo "# CUSTOM_JDLINGYU_ADWARS" >> temp-reject.txt
           curl -sSL ${CUSTOM_JDLINGYU_ADWARS} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
@@ -207,68 +207,68 @@ jobs:
           echo "# CUSTOM_EASYPRIVACY" >> temp-reject.txt
           curl -sSL ${CUSTOM_EASYPRIVACY} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
-          echo "# CUSTOM_FABRICEPRIGENT_ADS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_FABRICEPRIGENT_ADS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_FABRICEPRIGENT_ADS" >> BLACKHOLE
+          curl -sSL ${CUSTOM_FABRICEPRIGENT_ADS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_FADEMIND_TRACKERS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_FADEMIND_TRACKERS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_FADEMIND_TRACKERS" >> BLACKHOLE
+          curl -sSL ${CUSTOM_FADEMIND_TRACKERS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_GEOFFREYFROGEYE_FIRSTPARTY" >> temp-reject.txt
-          curl -sSL ${CUSTOM_GEOFFREYFROGEYE_FIRSTPARTY} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_GEOFFREYFROGEYE_FIRSTPARTY" >> BLACKHOLE
+          curl -sSL ${CUSTOM_GEOFFREYFROGEYE_FIRSTPARTY} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_KEES1958_TOP_ADS_TRACKERS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_KEES1958_TOP_ADS_TRACKERS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_KEES1958_TOP_ADS_TRACKERS" >> BLACKHOLE
+          curl -sSL ${CUSTOM_KEES1958_TOP_ADS_TRACKERS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_GEOFFREYFROGEYE_MULTIPARTY" >> temp-reject.txt
-          curl -sSL ${CUSTOM_GEOFFREYFROGEYE_MULTIPARTY} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_GEOFFREYFROGEYE_MULTIPARTY" >> BLACKHOLE
+          curl -sSL ${CUSTOM_GEOFFREYFROGEYE_MULTIPARTY} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_PERFLYST_ANDROID_TRACKERS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_PERFLYST_ANDROID_TRACKERS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_PERFLYST_ANDROID_TRACKERS" >> BLACKHOLE
+          curl -sSL ${CUSTOM_PERFLYST_ANDROID_TRACKERS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
           echo "# CUSTOM_PERFLYST_SMARTTV" >> temp-reject.txt
           curl -sSL ${CUSTOM_PERFLYST_SMARTTV} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
-          echo "# CUSTOM_QUIDSUP_TRACKERS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_QUIDSUP_TRACKERS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_QUIDSUP_TRACKERS" >> BLACKHOLE
+          curl -sSL ${CUSTOM_QUIDSUP_TRACKERS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_DANDELIONSPROUT_ANTI_MALWARE" >> temp-reject.txt
-          curl -sSL ${CUSTOM_DANDELIONSPROUT_ANTI_MALWARE} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_DANDELIONSPROUT_ANTI_MALWARE" >> BLACKHOLE
+          curl -sSL ${CUSTOM_DANDELIONSPROUT_ANTI_MALWARE} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_DIGITALSIDE_THREATINTEL" >> temp-reject.txt
-          curl -sSL ${CUSTOM_DIGITALSIDE_THREATINTEL} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_DIGITALSIDE_THREATINTEL" >> BLACKHOLE
+          curl -sSL ${CUSTOM_DIGITALSIDE_THREATINTEL} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_FABRICEPRIGENT_CRYPTOJACKING" >> temp-reject.txt
-          curl -sSL ${CUSTOM_FABRICEPRIGENT_CRYPTOJACKING} | perl -ne '/^0\.0\.0\.0([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_FABRICEPRIGENT_CRYPTOJACKING" >> BLACKHOLE
+          curl -sSL ${CUSTOM_FABRICEPRIGENT_CRYPTOJACKING} | perl -ne '/^0\.0\.0\.0([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_DISCONNECT_MALVERTISING" >> temp-reject.txt
-          curl -sSL ${CUSTOM_DISCONNECT_MALVERTISING} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_DISCONNECT_MALVERTISING" >> BLACKHOLE
+          curl -sSL ${CUSTOM_DISCONNECT_MALVERTISING} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_MANDIANT_APT1_REPORT" >> temp-reject.txt
-          curl -sSL ${CUSTOM_MANDIANT_APT1_REPORT} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_MANDIANT_APT1_REPORT" >> BLACKHOLE
+          curl -sSL ${CUSTOM_MANDIANT_APT1_REPORT} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
           echo "# CUSTOM_PHISHINGARMY" >> temp-reject.txt
           curl -sSL ${CUSTOM_PHISHINGARMY} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
-          echo "# CUSTOM_QUIDSUP_MALICIOUS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_QUIDSUP_MALICIOUS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_QUIDSUP_MALICIOUS" >> BLACKHOLE
+          curl -sSL ${CUSTOM_QUIDSUP_MALICIOUS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_SHALLA_MALICIOUS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_SHALLA_MALICIOUS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_SHALLA_MALICIOUS" >> BLACKHOLE
+          curl -sSL ${CUSTOM_SHALLA_MALICIOUS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
           echo "# CUSTOM_SPAM404" >> temp-reject.txt
           curl -sSL ${CUSTOM_SPAM404} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
-          echo "# CUSTOM_FADEMIND_RISKY_HOSTS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_FADEMIND_RISKY_HOSTS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_FADEMIND_RISKY_HOSTS" >> BLACKHOLE
+          curl -sSL ${CUSTOM_FADEMIND_RISKY_HOSTS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_URLHAUS_MALICIOUS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_URLHAUS_MALICIOUS} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_URLHAUS_MALICIOUS" >> BLACKHOLE
+          curl -sSL ${CUSTOM_URLHAUS_MALICIOUS} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_ZERODOT1_COINBLOCKLISTS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_ZERODOT1_COINBLOCKLISTS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_ZERODOT1_COINBLOCKLISTS" >> BLACKHOLE
+          curl -sSL ${CUSTOM_ZERODOT1_COINBLOCKLISTS} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_ANUDEEPND_FACEBOOK" >> temp-reject.txt
-          curl -sSL ${CUSTOM_ANUDEEPND_FACEBOOK} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_ANUDEEPND_FACEBOOK" >> BLACKHOLE
+          curl -sSL ${CUSTOM_ANUDEEPND_FACEBOOK} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
           echo "# CUSTOM_PRIVACYPROTECTIONTOOLS_ANTIAD" >> temp-reject.txt
           curl -sSL ${CUSTOM_PRIVACYPROTECTIONTOOLS_ANTIAD} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
@@ -282,8 +282,8 @@ jobs:
           echo "# CUSTOM_DEVINEENGINE_PRIVACY" >> temp-reject.txt
           curl -sSL ${CUSTOM_DEVINEENGINE_PRIVACY} | perl -ne '/^DOMAIN-SUFFIX\,([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\,REJECT$/ && print "$1\n"' >> temp-reject.txt
 
-          echo "# CUSTOM_EHPO1_LIBY" >> temp-reject.txt
-          curl -sSL ${CUSTOM_EHPO1_LIBY} | perl -ne '/^(host-suffix|host)\,\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\,\sAdBlock$/ && print "$2\n"' >> temp-reject.txt
+          echo "# CUSTOM_EHPO1_LIBY" >> BLACKHOLE
+          curl -sSL ${CUSTOM_EHPO1_LIBY} | perl -ne '/^(host-suffix|host)\,\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\,\sAdBlock$/ && print "$2\n"' >> BLACKHOLE
 
           echo "# CUSTOM_GEQ1AN_ADBLOCK" >> temp-reject.txt
           curl -sSL ${CUSTOM_GEQ1AN_ADBLOCK} | perl -ne '/^HOST-SUFFIX\,([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\,AdBlock$/ && print "$1\n"' >> temp-reject.txt
@@ -291,17 +291,17 @@ jobs:
           echo "# CUSTOM_NOBYDA_ADBLOCK" >> temp-reject.txt
           curl -sSL ${CUSTOM_NOBYDA_ADBLOCK} | perl -ne '/^DOMAIN-SUFFIX\,([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\,REJECT$/ && print "$1\n"' >> temp-reject.txt
           
-          echo "# CUSTOM_URLHAUS_MALICIOUS_FULL" >> temp-reject.txt
-          curl -sSL ${CUSTOM_URLHAUS_MALICIOUS_FULL} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_URLHAUS_MALICIOUS_FULL" >> BLACKHOLE
+          curl -sSL ${CUSTOM_URLHAUS_MALICIOUS_FULL} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_STEVENBLACK_FG" >> temp-reject.txt
-          curl -sSL ${CUSTOM_STEVENBLACK_FG} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_STEVENBLACK_FG" >> BLACKHOLE
+          curl -sSL ${CUSTOM_STEVENBLACK_FG} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_NOTRACKING_BLOCKLISTS" >> temp-reject.txt
-          curl -sSL ${CUSTOM_NOTRACKING_BLOCKLISTS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_NOTRACKING_BLOCKLISTS" >> BLACKHOLE
+          curl -sSL ${CUSTOM_NOTRACKING_BLOCKLISTS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_HOSHSADIQ_NOCOIN">> temp-reject.txt
-          curl -sSL ${CUSTOM_HOSHSADIQ_NOCOIN} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_HOSHSADIQ_NOCOIN">> BLACKHOLE
+          curl -sSL ${CUSTOM_HOSHSADIQ_NOCOIN} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
       - name: Reserve `full`, `regexp` and `keyword` type of rules from custom lists to "reserve" files
         run: |
