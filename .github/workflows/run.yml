@@ -270,8 +270,8 @@ jobs:
           echo "# CUSTOM_ANUDEEPND_FACEBOOK" >> BLACKHOLE
           curl -sSL ${CUSTOM_ANUDEEPND_FACEBOOK} | perl -ne '/^0\.0\.0\.0\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
-          echo "# CUSTOM_PRIVACYPROTECTIONTOOLS_ANTIAD" >> temp-reject.txt
-          curl -sSL ${CUSTOM_PRIVACYPROTECTIONTOOLS_ANTIAD} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_PRIVACYPROTECTIONTOOLS_ANTIAD" >> BLACKHOLE
+          curl -sSL ${CUSTOM_PRIVACYPROTECTIONTOOLS_ANTIAD} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
           echo "# CUSTOM_DEVINEENGINE_HIJACKING" >> temp-reject.txt
           curl -sSL ${CUSTOM_DEVINEENGINE_HIJACKING} | perl -ne '/^DOMAIN-SUFFIX\,([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})\,REJECT$/ && print "$1\n"' >> temp-reject.txt
