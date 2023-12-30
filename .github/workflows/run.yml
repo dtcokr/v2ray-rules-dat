@@ -204,8 +204,8 @@ jobs:
           echo "# CUSTOM_JDLINGYU_ADWARS" >> temp-reject.txt
           curl -sSL ${CUSTOM_JDLINGYU_ADWARS} | perl -ne '/^127\.0\.0\.1\s([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
 
-          echo "# CUSTOM_EASYPRIVACY" >> temp-reject.txt
-          curl -sSL ${CUSTOM_EASYPRIVACY} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> temp-reject.txt
+          echo "# CUSTOM_EASYPRIVACY" >> BLACKHOLE
+          curl -sSL ${CUSTOM_EASYPRIVACY} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
 
           echo "# CUSTOM_FABRICEPRIGENT_ADS" >> BLACKHOLE
           curl -sSL ${CUSTOM_FABRICEPRIGENT_ADS} | perl -ne '/^([-_0-9a-zA-Z]+(\.[-_0-9a-zA-Z]+){1,64})$/ && print "$1\n"' >> BLACKHOLE
