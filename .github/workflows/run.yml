@@ -2,6 +2,8 @@ name: Build V2Ray rules dat files
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 22 * * 0'
   push:
     branches:
       - 'hidden'
@@ -765,27 +767,3 @@ jobs:
           git push -f -u origin release
           echo "FDATE=$(date +%Y-%m-%d@%H:%M)" >> $GITHUB_ENV
 
-      - name: Call Telegram
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.CHAT_ID }}
-          token: ${{ secrets.BOT_TOKEN }}
-          message: |
-            #V2RayRulesDatUpdated #GitHub
-            
-            === Count ===
-            `Adblock`: *${{ env.OVA }}* (${{ env.D_OVA }})
-            `Direct`: *${{ env.OVD }}* (${{ env.D_OVD }})
-            `Proxy`: *${{ env.OVP }}* (${{ env.D_OVP }})
-
-            `Adblock-CN`: *${{ env.OVACN }}* (${{ env.D_OVACN }})
-            `Adblock-Lite`: *${{ env.OVAL }}* (${{ env.D_OVAL }})
-
-            `Adblock-Lean`: *${{ env.OVALE }}* (${{ env.D_OVALE }})
-            `Direct-Lean`: *${{ env.OVDLE }}* (${{ env.D_OVDLE }})
-            `Proxy-Lean`: *${{ env.OVPLE }}* (${{ env.D_OVPLE }})
-            
-            === Date ===
-            ${{ env.FDATE }} UTC
-          format: markdown
-          disable_notification: true
